@@ -21,22 +21,28 @@
 <br><br>
 
     <form novalidate (ngSubmit)="authenticate(recruiterForm)" #recruiterForm="ngForm" class="form-horizontal">
-    <input [ngModel]="recruiter?.recruiterId" ngModel #recruiterId="ngModel" type="hidden" name="recruiterId">
+    <!--<input [ngModel]="recruiter?.recruiterId" ngModel #recruiterId="ngModel" type="hidden" name="recruiterId">-->
 
     <div class="form-group">
       <label for="username" class="col-sm-2 control-label">User Name</label>
       <div class="col-sm-4">
-        <input [(ngModel)]="username" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
+        <input ngModel #username="ngModel" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
           <span *ngIf="formErrors.username" class="text-danger">
             {{ formErrors.username }}
         </span>
       </div>
     </div>
+        <!--<input [(ngModel)]="username" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
+          <span *ngIf="formErrors.username" class="text-danger">
+            {{ formErrors.username }}
+        </span>
+      </div>
+    </div>-->
 
     <div class="form-group">
       <label for="password" class="col-sm-2 control-label">Password</label>
       <div class="col-sm-4">
-        <input [(ngModel)]="password" type="text" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
+        <input ngModel #password="ngModel" type="text" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
           <span *ngIf="formErrors.password" class="text-danger">
             {{ formErrors.password }}
         </span>
@@ -45,10 +51,17 @@
 
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
-        <button [disabled]="!recruiterForm.form.valid" type="submit" class="btn btn-primary" [routerLink]="[ '/event']">Submit</button>
+        <button [disabled]="!recruiterForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </form>
+
+  <!--<div class="form-group"> 
+      <div class="col-sm-offset-2 col-sm-10">
+        <button [disabled]="!recruiterForm.form.valid" type="submit" class="btn btn-primary" [routerLink]="[ '/event']">Submit</button>
+      </div>
+    </div>
+  </form>-->
 
 
     <br><br>

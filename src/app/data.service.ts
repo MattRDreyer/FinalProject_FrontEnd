@@ -81,11 +81,10 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    recruiterLogin(endpoint: string, record:object):
-    Observable<object> {
-        let apiUrl = `${this.baseUrl}${endpoint}/username`;
-        // console.log(apiUrl);
-        return this.http.get(apiUrl)
+    recruiterLogin(endpoint: string, record:object):  Observable<object> {
+        let apiUrl = `${this.baseUrl}${endpoint}`;  //  /username/password?
+        console.log("login url = " + apiUrl);
+        return this.http.post(apiUrl, record)
             .map(this.extractData)
             .catch(this.handleError);
     }
