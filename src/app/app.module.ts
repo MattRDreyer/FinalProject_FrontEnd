@@ -24,7 +24,6 @@ import { EventComponent } from './event/event.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { ProspectComponent } from './prospect/prospect.component';
 import { QuizComponent } from './quiz/quiz.component';
-//import { EventRecruiterComponent } from './event-recruiter/event-recruiter.component';
 
 
 

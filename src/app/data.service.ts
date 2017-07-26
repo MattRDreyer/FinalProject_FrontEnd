@@ -81,10 +81,10 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    recruiterLogin(endpoint: string, record:object):  Observable<object> {
+    recruiterLogin(endpoint: string):  Observable<any> {
         let apiUrl = `${this.baseUrl}${endpoint}`;  //  /username/password?
         console.log("login url = " + apiUrl);
-        return this.http.post(apiUrl, record)
+        return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
@@ -141,6 +141,13 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    returnProspects(endpoint: string): Observable<object> {
+        let apiUrl = `${this.baseUrl}${endpoint}`;
+        return this.http.get(apiUrl)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
      getEventbyID(endpoint: string, id): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
         return this.http.get(apiUrl)
@@ -154,6 +161,13 @@ export class DataService {
         return this.http.post(apiUrl, record)
         .map(this.extractData)
         .catch(this.handleError);
+    }
+
+    getRecruiterIdRecords(endpoint: string): Observable<any> {
+        let apiUrl = `${this.baseUrl}${endpoint}`;
+        return this.http.get(apiUrl)
+            .map(this.extractData)
+            .catch(this.handleError);
     }
 
     //  editEventRecord(endpoint: string, record:object, id:number): Observable<object> {

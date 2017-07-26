@@ -28,7 +28,7 @@ export class ProspectComponent implements OnInit {
 
   //what we actually got from the service when finding by email
   prospect: object;
-  student: object;
+  students: object;
 
   constructor(
     private dataService: DataService,
@@ -36,13 +36,41 @@ export class ProspectComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit() { this.getStudents(); }
-
-  getStudents() {
-    this.dataService.getProspectRecord("student")
+  ngOnInit() { 
+    this.route.params
       .subscribe(
-        student => this.student = student,
-        error =>  this.errorMessage = <any>error);
+        (params: Params) => {
+          if(+params['eventId']){
+            this.getProspectsByEventId(+params['eventId'])
+          }
+      });
+   }
+
+  // getStudents() {
+  //   this.dataService.getProspectRecord("student")
+  //     .subscribe(
+  //       student => this.students = student,
+  //       error =>  this.errorMessage = <any>error);
+  // }
+
+  // eventInfo: number;
+
+  getProspectsByEventId(id: number){
+
+    this.dataService.getRecruiterIdRecords(`event/students/${id}`)
+      .subscribe(
+        students =>{
+          this.students = students.students
+        },
+        error => console.log("shit didnt go right")
+      );
+
+    // let eventInfo = localStorage.getItem('currentEventId');
+    // console.log('eventInfo')
+    // this.dataService.getRecruiterIdRecords(`event/students/${eventInfo}`)
+    //   .subscribe(
+    //    student => this.student = student,
+    //    error =>  this.errorMessage = <any>error);
   }
 
  

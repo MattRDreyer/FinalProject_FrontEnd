@@ -93,7 +93,7 @@ export class RecruiterFormComponent implements OnInit {
 
   formErrors = {
     'username': '',
-    'email': ''
+    'email': '',
   };
 
   validationMessages = {

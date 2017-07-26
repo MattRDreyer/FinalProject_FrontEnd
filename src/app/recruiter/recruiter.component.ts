@@ -35,23 +35,34 @@ export class RecruiterComponent implements OnInit {
 
   ngOnInit() {}
 
+  authenticate(recruiter: NgForm) {
+    
+        let username = recruiter.value.username;
+        let password = recruiter.value.password;
 
-   authenticate(recruiter: NgForm) {
-    console.log("id = " + recruiter.value.username);
-    console.log("password = " + recruiter.value.password);
-      this.dataService.recruiterLogin("login/new", recruiter.value) 
-      // this.recruiter = JSON.parse(localStorage.getItem('currentUser')) //could be used later for get
-          .subscribe(
-            recruiter => {
-            localStorage.setItem("currentUser", JSON.stringify(this.recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
-            // recruiter => console.log(recruiter),
-            // this.recruiter = {};
-
-          },
-          
-          error =>  this.errorMessage = <any>error);
-
+    this.dataService.recruiterLogin(`recruiter/${username}/${password}`)
+      .subscribe(
+      recruiter => {
+        localStorage.setItem("currentUser", JSON.stringify(recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
+        this.router.navigate([ 'recruiter/events', recruiter]);
+      },
+      error => this.errorMessage = "Login Invalid.  Please try again");
   }
+
+
+  //  authenticate(recruiter: NgForm) {
+  //     this.dataService.recruiterLogin("recruiter", recruiter.value) 
+  //     // this.recruiter = JSON.parse(localStorage.getItem('currentUser')) //could be used later for get
+  //         .subscribe(
+  //           recruiter => {
+  //           localStorage.setItem("currentUser", JSON.stringify(this.recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
+  //           // recruiter => console.log(recruiter),
+  //           // this.recruiter = {};
+
+  //         },
+          
+  //         error =>  this.errorMessage = <any>error);
+
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {
     this.formChanged();

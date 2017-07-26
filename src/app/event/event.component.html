@@ -23,6 +23,7 @@
       <th>Event Date</th>
       <th>Event Name</th>
       <th>Recruiter</th>
+      <!--<th>Recruiter ID</th>-->
       <th>Admin</th>
     </tr>
   </thead>
@@ -30,12 +31,11 @@
     <tr *ngFor="let event of events">
       <!--<td>{{event.eventId}}</td>-->
       <td class="text-center">
-        <a class="btn btn-primary" [routerLink]="['/student']">Activate Event</a>
-        
+        <a class="btn btn-primary" [routerLink]="['/student']">Activate Event</a> 
         </td>
     
       <td>{{event.eventDate}}</td>
-      <td> <a [routerLink]="['/prospectlist']">
+      <td> <a href="/event/students/{{event.eventId}}">
         {{event.eventName}}
         </a></td>
       <td><span *ngFor="let recruiter of event.recruiters">

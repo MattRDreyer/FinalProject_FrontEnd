@@ -18,17 +18,33 @@ export class EventComponent implements OnInit {
   events: any[];
   recruiters : any[];
   mode = 'Observable';
- 
+  event: object;
+
   constructor (private dataService: DataService, public dialog: MdDialog) {}
 
-   ngOnInit() { this.getEventRecruiters(); }
+   ngOnInit() { this.getEventRecruiters(); 
+   console.log()
+  }
 
   getEventRecruiters(){
-    this.dataService.getRecords("event/recruiters")
+    var recruiterInfo = localStorage.getItem('currentUser');
+    //console.log('recruiterId: ' + recruiterId);
+    this.dataService.getRecruiterIdRecords(`recruiter/events/${recruiterInfo}`)
       .subscribe(
        events => this.events = events,
-        error =>  this.errorMessage = <any>error);
+       error =>  this.errorMessage = <any>error);
   }
+
+  populateProspects(event) {
+    
+    let eventId = event.eventId;
+    this.dataService.returnProspects(`event/students/${eventId}`)
+      .subscribe(
+      event =>
+      localStorage.setItem("currentEventId", eventId)  //currentEvent = potato... can be used later to retrieve get for other functions
+        
+      )}
+
 
   deleteEvent(eventId:number) {
   // console.log(eventId);
