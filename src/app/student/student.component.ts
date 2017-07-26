@@ -1,15 +1,3 @@
-// import { Component } from '@angular/core';
-// import { NgForm } from '@angular/forms';
-// import { fadeInAnimation } from '../animations/fade-in.animation';
-// @Component({
-//   selector: 'app-student',
-//   templateUrl: './student.component.html',
-//   styleUrls: ['./student.component.css'],
-//   animations: [fadeInAnimation]
-// })
-// export class StudentComponent {
-//   email: string;
-// }
 
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, ViewChild }      from '@angular/core';
@@ -48,16 +36,6 @@ export class StudentComponent implements OnInit {
   ) {}
 
   ngOnInit() {}
-
-  // this logic will not be executed. it was used to help another team member.
-  authenticate(student: NgForm) {
-    this.dataService.authenticateLogin("student", student.value, student.value.studentId, student.value.email )
-        .subscribe(
-          student => this.successMessage = "Valid Login",
-          error =>  this.errorMessage = <any>error);
-          
-    this.router.navigate([ '/recruiter', student.value.studentId ]); 
-  } 
 
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {

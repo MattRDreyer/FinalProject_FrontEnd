@@ -23,6 +23,16 @@ export class DataService {
 //                               STUDENTS PATH                                          *
 // **************************************************************************************
 
+    // authenticateLogin(endpoint: string, record:object, enterprise_id:string, password:string): Observable<object> {
+    //     let apiUrl = `${this.baseUrl}${endpoint}/${enterprise_id}`;
+    //     let apiUrl2 = apiUrl + "&" + password;
+    //     console.log("in authenticateLogin: " + apiUrl2);
+    //     console.log(apiUrl2);
+    //     return this.http.get(apiUrl2)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
+
     // executed from the login screen
     getStudentRecordByEmail(endpoint: string, email:string): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${email}/`;
@@ -62,7 +72,7 @@ export class DataService {
     }
 
     // performed from quiz.component.ts to obtain quiz questions
-    // http://localhost:8080//quiz/student/{email}
+    // http://localhost:8080/quiz/student/{email}
     getQuizRecords(endpoint: string, option: string, email:string): Observable<any> {
         let apiUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"
         console.log("getQuizRecords: " + apiUrl);
@@ -70,7 +80,16 @@ export class DataService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-
+    
+    // http://localhost:8080/quizResults/add/{quizId}/{studentId}
+    // http://localhost:8080/quizResults/add/387/10
+    addQuizRecord(endpoint: string, record:any, quizId:number, studentId:number): Observable<object> {
+        let apiUrl = `${this.baseUrl}${endpoint}/add/${quizId}/${studentId}`;
+        console.log("addQuizRecord: " + apiUrl)
+        return this.http.post(apiUrl, record)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
 // **************************************************************************************
 //                               RECRUITER PATH                                         *
@@ -92,15 +111,6 @@ export class DataService {
         let apiUrl = `${this.baseUrl}${endpoint}/username`;
         // console.log(apiUrl);
         return this.http.get(apiUrl)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
-    authenticateLogin(endpoint: string, record:object, enterprise_id:string, password:string): Observable<object> {
-        let apiUrl = `${this.baseUrl}${endpoint}/${enterprise_id}`;
-        let apiUrl2 = apiUrl + "&" + password;
-        console.log(apiUrl2);
-        return this.http.get(apiUrl2)
             .map(this.extractData)
             .catch(this.handleError);
     }

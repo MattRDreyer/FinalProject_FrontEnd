@@ -28,6 +28,8 @@ export class StudentFormComponent implements OnInit {
   //what we actually got from the service when finding by email
   student: object;
 
+  email: string;
+
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,

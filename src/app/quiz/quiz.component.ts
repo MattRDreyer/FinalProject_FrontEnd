@@ -1,10 +1,11 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, ViewChild }      from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Location }               from '@angular/common';
+import { Location } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-quiz',
@@ -22,57 +23,89 @@ export class QuizComponent implements OnInit {
   choice: string;
 
   questions: object = {};
-
   quiz: object = {};
-
   quizForm: NgForm;
 
   mode = 'Observable';
-
-  studentId: string;
+  student: any;
   email: string;
+
+  res: any;
 
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private sanitizer: DomSanitizer
   ) {}
+  
+  escapeHtml(unsafe) {
+    // return this.sanitizer.bypassSecurityTrustHtml(unsafe)
+    return unsafe.replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;")
+                 .replace(/{/g, "&#123;")
+                 .replace(/}/g, "&#125;")
+  }
 
   ngOnInit() { 
     this.email = localStorage.getItem('email') || null;
     this.getQuiz();
+    this.getStudent();
   }
+
 
   // http://localhost:8080//quiz/student/{email}
   getQuiz() {
-      console.log("in getQuiz - email is " + this.email);
-      this.dataService.getQuizRecords( "quiz", "student", this.email )
+    console.log("in getQuiz - email is " + this.email);
+    this.dataService.getQuizRecords( "quiz", "student", this.email )
       .subscribe(
         quiz => {
           this.quiz = quiz;
           this.questions = quiz.questions;
         },
+        error => this.errorMessage = <any>error);
+  }
+
+
+  getStudent() {
+    this.route.params
+      .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", this.email))
+      .subscribe(
+        student => this.student = student,
         error =>  this.errorMessage = <any>error);
-  }
-  
-  // http://localhost:8080//quizResults/add/{quizId}
-  // {
-  //     "answer1":"A",
-  //     "answer2":"B",
-  //     "answer3":"C",
-  //     "answer4":"A",
-  //     "answer5":"B",
-  //     "finalScore":3
-  // }
+  }  
+
+  // POST http://localhost:8080/quizResults/add/{quizId}/{studentId}
+  // console.log(this.entries);
+  // console.log("---------------- in saveQuiz() ---------------------")
+  // console.log("for quizId " + quizForm.value.quizId);
+  // console.log("for studentId " + this.student.studentId);
   saveQuiz(quizForm: NgForm) {
-    console.log(this.entries);
-    console.log("---------------- in saveQuiz() ---------------------")
-    console.log("for quizId " + quizForm.value.quizId);
-    for (let i = 0; i < this.entries.length; i++) {
-      console.log("question number is " + this.entries[i].questionId + " and user chose " + this.entries[i].select);
+
+    let quiz = {
+      quizId: quizForm.value.quizId,
+      entries: []
     }
+    this.entries.forEach(entry => {
+        quiz.entries.push({
+            questionId: entry.questionId,
+            answer: entry[`${entry.select}`]
+        })
+    })
+    
+    this.dataService.addQuizRecord("quizResults", JSON.stringify(quiz), quizForm.value.quizId, this.student.studentId)
+      .subscribe(
+        res => this.successMessage = "Record added successfully",
+        error =>  this.errorMessage = <any>error);
+    
+    localStorage.removeItem('email') || null;
+    this.router.navigate( ['/student'] );
   }
+
 
     onSelectionChange(entry, choice) {
       this.selectedEntry = entry;
@@ -81,11 +114,11 @@ export class QuizComponent implements OnInit {
       for (let i = 0; i < this.entries.length; i++) {
         if (this.selectedEntry.questionId == this.entries[i].questionId) {
             this.entries[i] = this.selectedEntry;
-            console.log("question " + this.selectedEntry.questionId + " already exists in array - overlaying");
+            //console.log("question " + this.selectedEntry.questionId + " already exists in array - overlaying");
             return;
         }
       }
-      console.log("question " + this.selectedEntry.questionId + " does not exist in array - pushing");
+      //console.log("question " + this.selectedEntry.questionId + " does not exist in array - pushing");
       this.entries.push(this.selectedEntry);
     }
 
