@@ -5,7 +5,7 @@
         <li class="active">Student Quiz</li>
     </ol>
 
-    <h2>TAKE A DAMN QUIZ AND GET OUT!</h2>
+    <h2>Prospect Quiz</h2>
     <br/>
 
     <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
@@ -15,22 +15,11 @@
         </button>
     </div> 
 
-
-<!-- <div>
-<input type="radio" name="question.quesitonId" [value]="question.choiceA" [(ngModel)]="question.choiceA">{{question.choiceA}}
-<input type="radio" name="question.quesitonId" [value]="question.choiceB" [(ngModel)]="question.choiceB">{{question.choiceB}}
-<input type="radio" name="question.quesitonId" [value]="question.choiceC" [(ngModel)]="question.choiceC">{{question.choiceC}}
-<input type="radio" name="question.quesitonId" [value]="question.choiceD" [(ngModel)]="question.choiceD">{{question.choiceD}}
-<input type="radio" name="question.quesitonId" [value]="question.noneOfTheAbove" [(ngModel)]="question.noneOfTheAbove">{{question.noneOfTheAbove}}
-</div> -->
-
-
     <form novalidate (ngSubmit)="saveQuiz(quizForm)"  #quizForm="ngForm" class="form-horizontal">
 
         <input [ngModel]="quiz.quizId" ngModel #quizId="ngModel" type="hidden" name="quizId" [value]="quiz.quizId">
 
         <div *ngFor="let question of quiz.questions">
-
             <div class="row">
                 <div id="box" class="col-lg-10 col-md-11 col-sm-2 col-xs-12">
                     <div class="panel panel-primary">
@@ -41,27 +30,27 @@
 
                             <label>
                                 &nbsp;&nbsp;
-                                <input ngModel #choiceA="ngModel" type="radio" name={{question.questionId}} id="{{escapeHtml(question.choiceA)}}" [value]="escapeHtml(question.choiceA)" (change)="onSelectionChange(question, 'choiceA')" required>{{escapeHtml(question.choiceA)}} 
+                                <input ngModel #choiceA="ngModel" type="radio" name={{question?.questionId}} id="{{escapeHtml(question?.choiceA)}}" [value]="escapeHtml(question?.choiceA)" (change)="onSelectionChange(question, 'A')" required>{{escapeHtml(question?.choiceA)}} 
                             </label><br/>
 
                             <label>
                                 &nbsp;&nbsp;
-                                <input ngModel #choiceB="ngModel" type="radio" name={{question.questionId}} id="{{escapeHtml(question.choiceB)}}" [value]="escapeHtml(question.choiceB)" (change)="onSelectionChange(question, 'choiceB')" required>{{escapeHtml(question.choiceB)}} 
+                                <input ngModel #choiceB="ngModel" type="radio" name={{question?.questionId}} id="{{escapeHtml(question?.choiceB)}}" [value]="escapeHtml(question?.choiceB)" (change)="onSelectionChange(question, 'B')" required>{{escapeHtml(question?.choiceB)}} 
                             </label><br/>
 
                             <label>
                                 &nbsp;&nbsp;
-                                <input ngModel #choiceC="ngModel" type="radio" name={{question.questionId}} id="{{escapeHtml(question.choiceC)}}" [value]="escapeHtml(question.choiceC)" (change)="onSelectionChange(question, 'choiceC')" required>{{escapeHtml(question.choiceC)}} 
+                                <input ngModel #choiceC="ngModel" type="radio" name={{question?.questionId}} id="{{escapeHtml(question?.choiceC)}}" [value]="escapeHtml(question?.choiceC)" (change)="onSelectionChange(question, 'C')" required>{{escapeHtml(question?.choiceC)}} 
                             </label><br/>
 
                             <label>
                                 &nbsp;&nbsp;
-                                <input ngModel #choiceD="ngModel" type="radio" name={{question.questionId}} id="{{escapeHtml(question.choiceD)}}" [value]="escapeHtml(question.choiceD)" (change)="onSelectionChange(question, 'choiceD')" required>{{escapeHtml(question.choiceD)}} 
+                                <input ngModel #choiceD="ngModel" type="radio" name={{question?.questionId}} id="{{escapeHtml(question?.choiceD)}}" [value]="escapeHtml(question?.choiceD)" (change)="onSelectionChange(question, 'D')" required>{{escapeHtml(question?.choiceD)}} 
                             </label><br/>
 
                             <label>
                                 &nbsp;&nbsp;
-                                <input ngModel #noneOfTheAbove="ngModel" type="radio" name={{question.questionId}}  id="{{escapeHtml(question.noneOfTheAbove)}}" required [value]="escapeHtml(question.noneOfTheAbove)" (change)="onSelectionChange(question, 'noneOfTheAbove')" >{{escapeHtml(question.noneOfTheAbove)}} 
+                                <input ngModel #noneOfTheAbove="ngModel" type="radio" name={{question?.questionId}}  id="{{escapeHtml(question?.noneOfTheAbove)}}" required [value]="escapeHtml(question?.noneOfTheAbove)" (change)="onSelectionChange(question, 'E')" >{{escapeHtml(question?.noneOfTheAbove)}} 
                             </label><br/><br/>
 
                          </div>   <!-- end radio buttons --> 
@@ -74,29 +63,23 @@
         </div>
         <br/><br/><br/>
     </form>
+
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 </section>
-
-
-                            <!-- <div class="radio">
-
-                                <label>
-                                    <input type="radio" name={{question.questionId}} id="choiceA">{{question.choiceA}} 
-                                </label><br/>
-
-                                <label>
-                                    <input type="radio" name={{question.questionId}} id="choiceB">{{question.choiceB}} 
-                                </label><br/>
-
-                                <label>
-                                    <input type="radio" name={{question.questionId}} id="choiceC">{{question.choiceC}} 
-                                </label><br/>
-
-                                <label>
-                                    <input type="radio" name={{question.questionId}} id="choiceD">{{question.choiceD}} 
-                                </label><br/>
-
-                                <label>
-                                    <input type="radio" name={{question.questionId}} id="noneOfTheAbove">{{question.noneOfTheAbove}} 
-                                </label><br/>
-
-                            </div> -->

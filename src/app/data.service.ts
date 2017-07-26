@@ -81,10 +81,10 @@ export class DataService {
             .catch(this.handleError);
     }
     
-    // http://localhost:8080/quizResults/add/{quizId}/{studentId}
-    // http://localhost:8080/quizResults/add/387/10
-    addQuizRecord(endpoint: string, record:any, quizId:number, studentId:number): Observable<object> {
-        let apiUrl = `${this.baseUrl}${endpoint}/add/${quizId}/${studentId}`;
+    // http://localhost:8080/quizResults/add/{quizId}/{studentId}/
+    // http://localhost:8080/quizResults/add/387/10/
+    addQuizRecord(endpoint: string, record:object, quizId:number, studentId:number): Observable<object> {
+        let apiUrl = `${this.baseUrl}${endpoint}/add/${quizId}/${studentId}/`;
         console.log("addQuizRecord: " + apiUrl)
         return this.http.post(apiUrl, record)
             .map(this.extractData)
@@ -255,7 +255,7 @@ export class DataService {
                 return Observable.throw(e);
             }
         }
-        return results || [];
+        return results || {};
     }
 
 

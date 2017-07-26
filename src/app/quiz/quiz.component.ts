@@ -30,6 +30,8 @@ export class QuizComponent implements OnInit {
   student: any;
   email: string;
 
+  MYJSON = JSON;
+
   res: any;
 
   constructor(
@@ -41,14 +43,13 @@ export class QuizComponent implements OnInit {
   ) {}
   
   escapeHtml(unsafe) {
-    // return this.sanitizer.bypassSecurityTrustHtml(unsafe)
-    return unsafe.replace(/&/g, "&amp;")
-                 .replace(/</g, "&lt;")
-                 .replace(/>/g, "&gt;")
-                 .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;")
-                 .replace(/{/g, "&#123;")
-                 .replace(/}/g, "&#125;")
+    try {
+      var html = unsafe.replace(/{/g, "\{")
+                       .replace(/}/g, "\}");
+    } catch (error) {
+      html = unsafe;
+    }
+    return html;
   }
 
   ngOnInit() { 
@@ -79,30 +80,48 @@ export class QuizComponent implements OnInit {
         error =>  this.errorMessage = <any>error);
   }  
 
-  // POST http://localhost:8080/quizResults/add/{quizId}/{studentId}
-  // console.log(this.entries);
-  // console.log("---------------- in saveQuiz() ---------------------")
-  // console.log("for quizId " + quizForm.value.quizId);
-  // console.log("for studentId " + this.student.studentId);
+
+  // POST: http://localhost:8080/quizResults/add/{quizId}/{studentId}
   saveQuiz(quizForm: NgForm) {
+    console.log("email: " + this.email);
+    console.log("studentId: " + this.student.studentId);
+    console.log("quizId " + quizForm.value.quizId);
 
     let quiz = {
-      quizId: quizForm.value.quizId,
-      entries: []
+      answers: []
     }
     this.entries.forEach(entry => {
-        quiz.entries.push({
+        quiz.answers.push({
             questionId: entry.questionId,
-            answer: entry[`${entry.select}`]
+            providedAnswer: entry.select
         })
-    })
+    });
+
+    // let quiz = {
+    //   quizId: quizForm.value.quizId,
+    //   entries: []
+    // }
+    // this.entries.forEach(entry => {
+    //     quiz.entries.push({
+    //         questionId: entry.questionId,
+    //         answer: entry.select
+    //     })
+    // });
     
-    this.dataService.addQuizRecord("quizResults", JSON.stringify(quiz), quizForm.value.quizId, this.student.studentId)
+    console.log(JSON.stringify(quiz));
+
+    var str = JSON.stringify(quiz);
+    var obj = JSON.parse(str);
+
+    this.dataService.addQuizRecord("quizResults", obj, quizForm.value.quizId, this.student.studentId)
       .subscribe(
         res => this.successMessage = "Record added successfully",
-        error =>  this.errorMessage = <any>error);
+        error =>  this.errorMessage = <any>error
+    );  
+
+    // insert quiz acknowledgment here
     
-    localStorage.removeItem('email') || null;
+    localStorage.removeItem('email');
     this.router.navigate( ['/student'] );
   }
 
@@ -110,6 +129,8 @@ export class QuizComponent implements OnInit {
     onSelectionChange(entry, choice) {
       this.selectedEntry = entry;
       this.selectedEntry["select"] = choice;
+
+      //console.log(this.selectedEntry);
 
       for (let i = 0; i < this.entries.length; i++) {
         if (this.selectedEntry.questionId == this.entries[i].questionId) {
