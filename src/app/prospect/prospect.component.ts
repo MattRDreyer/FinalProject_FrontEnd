@@ -28,7 +28,7 @@ export class ProspectComponent implements OnInit {
 
   //what we actually got from the service when finding by email
   prospect: object;
-  student: object;
+  students: object;
 
   constructor(
     private dataService: DataService,
@@ -36,126 +36,31 @@ export class ProspectComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit() { this.getStudents(); }
-
-  getStudents() {
-    this.dataService.getProspectRecord("student")
+  ngOnInit() { 
+    this.route.params
       .subscribe(
-        student => this.student = student,
-        error =>  this.errorMessage = <any>error);
-  }
+        (params: Params) => {
+          if(+params['eventId']){
+            this.getProspectsByEventId(+params['eventId'])
+          }
+      });
+   }
 
- 
-  
-  //saves student to the databbase using the service to call the api
-  //if we had a id on the form and it is a number then edit otherwise create
-  // saveStudent(student: NgForm){
-  //   console.log("studentId = " + student.value.studentId)
-  //   if(typeof student.value.studentId === "number"){
-  //     console.log("Update by ID " + student.value.studentId)
-  //     this.dataService.editStudentRecord("student", student.value, student.value.studentId)
-  //         .subscribe(
-  //           student => this.successMessage = "Record updated successfully",
-  //           error =>  this.errorMessage = <any>error);
-  //   }else{
-  //     console.log("Adding Student")
-  //     this.dataService.addStudentRecord("student", student.value)
-  //         .subscribe(
-  //           student => this.successMessage = "Record added successfully",
-  //           error =>  this.errorMessage = <any>error);
-  //           this.student = {};
-  //   }
-  // }
-
-  //everything below here is form validation boiler plate
-  // ngAfterViewChecked() {
-  //   this.formChanged();
-  // }
-
-  // formChanged() {
-  //   this.studentForm = this.currentForm;
-  //   this.studentForm.valueChanges
+  // getStudents() {
+  //   this.dataService.getProspectRecord("student")
   //     .subscribe(
-  //       data => this.onValueChanged()
-  //     );
+  //       student => this.students = student,
+  //       error =>  this.errorMessage = <any>error);
   // }
 
-  // onValueChanged() {
-  //   let form = this.studentForm.form;
+  getProspectsByEventId(id: number){
 
-  //   for (let field in this.formErrors) {
-  //     // clear previous error message (if any)
-  //     this.formErrors[field] = '';
-  //     const control = form.get(field);
-
-  //     if (control && control.dirty && !control.valid) {
-  //       const messages = this.validationMessages[field];
-  //       for (const key in control.errors) {
-  //         this.formErrors[field] += messages[key] + ' ';
-  //       }
-  //     }
-  //   }
-  // }
-
-  // private int studentId;
-	// private String firstName;
-	// private String lastName;
-	// private String university;
-	// private String major;
-	// private Float gpa;
-	// private String email;
-	// private String phoneNumber;
-	// private String graduationMonth;
-	// private String graduationYear;
-	
-  //fields that need to be validated
-  // formErrors = {
-  //   'email': '',
-  //   'firstName': '',
-  //   'lastName': '',
-  //   'university': '',
-  //   'major': '',
-  //   'gpa': '',
-  //   'phoneNumber': '',
-  //   'graduationMonth': '',
-  //   'graduationYear': ''
-  // };
-
-  // validationMessages = {
-  //   'email': {
-  //     'required': 'Email is required',
-  //     'minlength': 'Email must be at least 2 characters long',
-  //     'maxlength': 'Email cannot be more than 50 characters long'
-  //   },
-  //   'firstName': {
-  //     'required': 'First name is required',
-  //     'minlength': 'First name must be at least 2 characters long',
-  //     'maxlength': 'First name cannot be more than 30 characters long'
-  //   },
-  //   'lastName': {
-  //     'required': 'Last name is required',
-  //     'minlength': 'Last name must be at least 2 characters long',
-  //     'maxlength': 'Last name cannot be more than 30 characters long'
-  //   },
-  //   'university': {
-  //     'required': 'University is required'
-  //   },
-  //   'major': {
-  //     'required': 'Major is required'
-  //   },
-  //   'gpa': {
-  //     'pattern': 'GPA must be a decimal'
-  //   },
-  //   'graduationMonth': {
-  //     'required': 'Graduation Month is required'
-  //   },
-  //   'graduationYear': {
-  //     'required': 'Graduation Year is required'
-  //   },
-  //   'phoneNumber': {
-  //     'required': 'Phone Number is required.',
-  //     'minlength': 'Phone Number must be at least 2 characters long',
-  //     'maxlength': 'Phone Number cannot be more than 15 characters long'
-  //   },
-  // };
+    this.dataService.getRecruiterIdRecords(`event/students/${id}`)
+      .subscribe(
+        students =>{
+          this.students = students.students
+        },
+        error => console.log("shit didnt go right")
+      );
+  }
 }

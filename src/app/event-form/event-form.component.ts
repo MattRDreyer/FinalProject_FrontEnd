@@ -71,19 +71,19 @@ export class EventFormComponent implements OnInit {
     if(typeof eventId === "number"){
       this.dataService.editRecord("event", this.eventForm.value, eventId)
             .subscribe(
-            event => { this.successMessage = "Record(s) updated succesfully"; this.getEventRecruiters(); },
+            event => { this.successMessage = "Record(s) updated succesfully"; this.getEventRecruiters();},
             error =>  this.errorMessage = <any>error);
 
     }else{
       console.log(this.eventForm.value)
       this.dataService.addEventRecord("event", this.eventForm.value)
           .subscribe(
-           event => { this.successMessage = "Record(s) updated succesfully"; this.getEventRecruiters(); },
+           event => { this.successMessage = "Record(s) updated succesfully"; this.getEventRecruiters();},
             error =>  this.errorMessage = <any>error);
     }
     this.event = {};
     this.eventForm.reset();
-    this.router.navigate( ['/event'] );
+    // this.router.navigate( ['/event'] );
   }
 
   byRecruiterId(item1, item2){

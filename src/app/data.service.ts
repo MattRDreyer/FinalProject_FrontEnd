@@ -19,7 +19,7 @@ export class DataService {
     // http://localhost:8080/student/dford@gmail.com/
     // IMPORTANT: WHEN SENDING EMAIL ADDRESS IT MUST END WITH A '/'
 
-    // executed from the login screen
+     // executed from the login screen
     getStudentRecordByEmail(endpoint: string, email:string): Observable<object> {
         //console.log(email);
         let apiUrl = `${this.baseUrl}${endpoint}/${email}/`;
@@ -28,8 +28,8 @@ export class DataService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    
-    // executed for edit
+   
+        // executed for edit
     getStudentRecordById(endpoint: string, id:number): Observable<object> {
     let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
     return this.http.get(apiUrl)
@@ -37,7 +37,7 @@ export class DataService {
         .catch(this.handleError);
     }
 
-    // performed from saveStudent in student-form.component.ts
+   // performed from saveStudent in student-form.component.ts
     editStudentRecord(endpoint: string, record:object, id:number): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
 
@@ -58,17 +58,19 @@ export class DataService {
             .catch(this.handleError);
     }
 
-      // performed from quiz.component.ts to obtain quiz questions
+     // performed from quiz.component.ts to obtain quiz questions
     // http://localhost:8080/question/buildQuiz/2
+    // performed from quiz.component.ts to obtain quiz questions
+    // http://localhost:8080//quiz/student/{studentId}
     getQuizRecords(endpoint: string, option: string, id:string): Observable<any> {
         let apiUrl = this.baseUrl+endpoint+"/"+option+"/"+id
-        console.log("getRecords: " + apiUrl);
+        console.log("getQuizRecords: " + apiUrl);
         return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
   
-    // RECRUITER GET, PUT, & POST
+   // RECRUITER GET, PUT, & POST
     registerLogin(endpoint: string, record:object, username:string, password: string, email:string, firstName:string, lastName:string): 
     Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/all`;
@@ -79,10 +81,9 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    recruiterLogin(endpoint: string, record:object):
-    Observable<object> {
-        let apiUrl = `${this.baseUrl}${endpoint}/username`;
-        // console.log(apiUrl);
+   recruiterLogin(endpoint: string):  Observable<any> {
+        let apiUrl = `${this.baseUrl}${endpoint}`;  //  /username/password?
+        console.log("login url = " + apiUrl);
         return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -97,14 +98,14 @@ export class DataService {
             .catch(this.handleError);
     }
 
-    getRecruiterRecord(endpoint: string, username:string): Observable<object> {
+      getRecruiterRecord(endpoint: string, username:string): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${username}`;
         return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
         
-    getProspectRecord(endpoint: string): Observable<any[]> {  // might only have getrandom ?
+     getProspectRecord(endpoint: string): Observable<any[]> {  // might only have getrandom ?
         let apiUrl = `${this.baseUrl}${endpoint}/all`;
         return this.http.get(apiUrl)
             .map(this.extractData)  //how to map data from API
@@ -112,7 +113,7 @@ export class DataService {
     }
     
 
-    addRecruiterRecord(endpoint: string, record:object): Observable<object> {
+   addRecruiterRecord(endpoint: string, record:object): Observable<object> {
     let apiUrl = `${this.baseUrl}${endpoint}/add`;
     console.log(apiUrl)
     return this.http.post(apiUrl, record)
@@ -120,7 +121,7 @@ export class DataService {
         .catch(this.handleError);
     }
 
-    //   
+       //   
     editRecruiterRecord(endpoint: string, record:object, id:number): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
         console.log(record)
@@ -140,8 +141,22 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    returnProspects(endpoint: string): Observable<object> {
+        let apiUrl = `${this.baseUrl}${endpoint}`;
+        return this.http.get(apiUrl)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
      getEventbyID(endpoint: string, id): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
+        return this.http.get(apiUrl)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    
+     getRecruiterIdRecords(endpoint: string): Observable<any> {
+        let apiUrl = `${this.baseUrl}${endpoint}`;
         return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -154,15 +169,6 @@ export class DataService {
         .map(this.extractData)
         .catch(this.handleError);
     }
-
-    //  editEventRecord(endpoint: string, record:object, id:number): Observable<object> {
-    //     let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
-    //     console.log(record)
-    //     console.log(apiUrl)
-    //     return this.http.put(apiUrl, record)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
 
     getRecords(endpoint: string): Observable<any[]> {
         let apiUrl = this.baseUrl+endpoint + "/all";
@@ -184,7 +190,7 @@ export class DataService {
             .catch(this.handleError);
     }
 
-      editRecord(endpoint: string, record:object, id:number): Observable<object> {
+    editRecord(endpoint: string, record:object, id:number): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
         console.log(record)
         console.log(apiUrl)

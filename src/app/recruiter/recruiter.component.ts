@@ -35,22 +35,20 @@ export class RecruiterComponent implements OnInit {
 
   ngOnInit() {}
 
-  // authenticateLogin(recruiter: NgForm) {
-  //   console.log("id = " + recruiter.value.username);
-  //   console.log("password = " + recruiter.value.password);
-  // }
+  authenticate(recruiter: NgForm) {
+    
+        let username = recruiter.value.username;
+        let password = recruiter.value.password;
 
-   authenticate(recruiter: NgForm) {
-    console.log("id = " + recruiter.value.username);
-    console.log("password = " + recruiter.value.password);
-      this.dataService.recruiterLogin("recruiter", recruiter.value)
-          .subscribe(
-            recruiter => console.log(recruiter),
-            error =>  this.errorMessage = <any>error);
-            this.recruiter = {};
-            console.log(this.recruiter)
-
+    this.dataService.recruiterLogin(`recruiter/${username}/${password}`)
+      .subscribe(
+      recruiter => {
+        localStorage.setItem("currentUser", JSON.stringify(recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
+        this.router.navigate([ 'recruiter/events', recruiter]);
+      },
+      error => this.errorMessage = "Login Invalid.  Please try again");
   }
+
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {
     this.formChanged();

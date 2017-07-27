@@ -61,7 +61,20 @@ export class RecruiterFormComponent implements OnInit {
   // everything below here is form validation boiler plate
 
 
-  onValueChanged(data?: any) {
+  //everything below here is form validation boiler plate
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    this.recruiterForm = this.currentForm;
+    this.recruiterForm.valueChanges
+      .subscribe(
+        data => this.onValueChanged()
+      );
+  }
+
+  onValueChanged() {
     let form = this.recruiterForm.form;
 
     for (let field in this.formErrors) {
@@ -80,7 +93,7 @@ export class RecruiterFormComponent implements OnInit {
 
   formErrors = {
     'username': '',
-    'email': ''
+    'email': '',
   };
 
   validationMessages = {
@@ -88,11 +101,9 @@ export class RecruiterFormComponent implements OnInit {
       'required': 'User Name is required.'
     },
     'email': {
-      'required': 'Email is required.',
-      'pattern': 'Email must include @ symbol',
-      'minlength': 'Email must be at least 2 characters long',
-      'maxlength': 'Email cannot be more than 50 characters long'
-    }
+      'required': 'Email is required',
+      'pattern': 'Invalid Email Format'
+    },
   };
 
 }

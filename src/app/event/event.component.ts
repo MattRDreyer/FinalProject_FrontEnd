@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
-import  { BrowserModule}  from '@angular/platform-browser'
-// import { SearchFilter } from './searchFilter.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { Subject } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 import { DataService } from '../data.service'
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
@@ -12,59 +11,80 @@ import { fadeInAnimation } from '../animations/fade-in.animation';
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  template: '<ng2-smart-table [settings]="settings" [source]="DataService"></ng2-smart-table>',
   styleUrls: ['./event.component.css'],
   animations: [fadeInAnimation]
 })
 
 export class EventComponent implements OnInit {
-
-    settings = {
-    columns: {
-      id: {
-        title: 'Event ID'
-      },
-      eventDate: {
-        title: 'Event Date'
-      },
-      eventName: {
-        title: 'Event Name'
-      },
-      recruiter: {
-        title: 'Recruiter'
-      }
-    }
-  };
-
+  dtOptions: any = {};
+  dtTrigger: Subject<any> = new Subject();
+  events: any[];
   errorMessage: string;
   successMessage: string;
-  events: any[];
-  recruiters : any[];
   mode = 'Observable';
- 
-  constructor (private dataService: DataService, public dialog: MdDialog) {}
+  event: object;
 
-   ngOnInit() { this.getEventRecruiters(); }
+  constructor(private dataService: DataService, public dialog: MdDialog) { }
 
-  getEventRecruiters(){
-    this.dataService.getRecords("event/recruiters")
-      .subscribe(
-       events => this.events = events,
-        error =>  this.errorMessage = <any>error);
+  ngOnInit(): void {
+    this.dtOptions = {
+      paging: true,
+      searching: true,
+      dom: 'Bfrtlip',
+      buttons: [
+        'copy',
+        'print',
+        'excel',
+      ]
+    }
+    this.getEventRecruiters();
   }
 
-  deleteEvent(eventId:number) {
-  // console.log(eventId);
+    getEventRecruiters(){
+    var recruiterInfo = localStorage.getItem('currentUser');
+    this.dataService.getRecruiterIdRecords(`recruiter/events/${recruiterInfo}`)
+      .subscribe(
+        events => {
+          this.events = events
+          this.dtTrigger.next()
+        },
+        error =>  this.errorMessage = <any>error
+      );
+  }
+
+    populateProspects(event) {
+    let eventId = event.eventId;
+    this.dataService.returnProspects(`event/students/${eventId}`)
+      .subscribe(
+      event =>
+      localStorage.setItem("currentEventId", eventId)  //currentEvent = potato... can be used later to retrieve get for other functions
+        
+      )}
+
+  deleteEvent(eventId: number) {
+    // console.log(eventId);
     let dialogRef = this.dialog.open(DeleteConfirmComponent);
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.dataService.deleteRecord("event", eventId)
           .subscribe(
-            event => { this.successMessage = "Record(s) deleted succesfully"; this.getEventRecruiters(); },
-            error =>  this.errorMessage = <any>error);
+          event => { this.successMessage = "Record(s) deleted succesfully"; this.getEventRecruiters(); },
+          error => this.errorMessage = <any>error);
 
       }
 
-      }); 
-}
+      //This is useful if we have to pull all the events for all the recruiters
+  // getEventRecruiters() {
+  //   this.dataService.getRecords("event/recruiters")
+  //     .subscribe(
+  //     recruiterArray => {
+  //       this.events = recruiterArray
+  //       this.dtTrigger.next();
+  //     },
+  //     error => this.errorMessage = <any>error
+  //     )
+  // }
+
+    });
+  }
 }

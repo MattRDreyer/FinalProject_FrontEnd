@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { RouterModule }   from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { DataTablesModule } from 'angular-datatables';
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -11,11 +12,10 @@ import { AppRoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
 import { DataService } from './data.service';
 import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
-import { TreeTableModule, DataTableModule, SharedModule, MultiSelectModule } from 'primeng/primeng';
 import { StatusMessageComponent } from './status-message/status-message.component';
-import { CommonModule } from '@angular/common';
-import { Pipe, PipeTransform} from '@angular/core';
-import { SearchFilter } from './event/searchFilter.component';
+import { CommonModule } from '@angular/common'; 
+import { Subject } from 'rxjs/Rx';
+
 
 
 import { StudentComponent } from './student/student.component';
@@ -27,9 +27,9 @@ import { EventComponent } from './event/event.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { ProspectComponent } from './prospect/prospect.component';
 import { QuizComponent } from './quiz/quiz.component';
-import { Ng2SmartTableModule } from 'ng2-smart-table';
 
-//import { EventRecruiterComponent } from './event-recruiter/event-recruiter.component';
+
+
 
 
 
@@ -49,20 +49,15 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     EventFormComponent,
     ProspectComponent,
     QuizComponent,
-    SearchFilter,
-    // EventRecruiterComponent
-
   ],
   imports: [
     BrowserModule,
+    DataTablesModule,
     AppRoutingModule,
     HttpModule,
     MaterialModule,
     BrowserAnimationsModule,
-    FormsModule,
-    Ng2SmartTableModule,
-    
-    
+    FormsModule
   ],
   entryComponents: [DeleteConfirmComponent],
   providers: [DataService],

@@ -36,21 +36,21 @@ export class StudentFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.params
-      .subscribe((params: Params) => {
-        (params['email']) ? this.getRecordForEdit() : null;
-      });
+        this.route.params
+          .subscribe((params: Params) => {
+            (params['email']) ? this.getRecordForEdit() : null;
+          });
   }
 
   getRecordForEdit(){
     //console.log("hola")
     this.route.params
-      .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", params['email']))
+        .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", params['email']))
       .subscribe(
         student => this.student = student,
         error =>  this.errorMessage = <any>error);
   }
-  
+
   //saves student to the databbase using the service to call the api
   //if we had a id on the form and it is a number then edit otherwise create
   saveStudent(student: NgForm){
@@ -115,7 +115,7 @@ export class StudentFormComponent implements OnInit {
 	// private String phoneNumber;
 	// private String graduationMonth;
 	// private String graduationYear;
-	
+
   //fields that need to be validated
   formErrors = {
     'email': '',

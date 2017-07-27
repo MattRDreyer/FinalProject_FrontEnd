@@ -30,10 +30,12 @@ const routes: Routes = [
  { path: 'recruiter',  component: RecruiterComponent },
   { path: 'recruiter/add', component: RecruiterFormComponent },
   { path: 'register/add',  component: RegisterComponent },
-   { path: 'prospectlist',  component: ProspectComponent },
+  { path: 'prospectlist',  component: ProspectComponent },
+  { path: 'event/students/:eventId',  component: ProspectComponent },
+
 
   { path: 'event',  component: EventComponent },
-  // { path: 'recruiter/username/:enterprise_id', component: EventComponent },
+    { path: 'recruiter/events/:recruiterId',  component: EventComponent },
   { path: 'event/add', component: EventFormComponent },
   { path: 'event/edit/:eventId', component: EventFormComponent },
 ];
