@@ -7,6 +7,10 @@ import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import { MdDialog, MdDialogConfig } from '@angular/material';
+import { ConfirmComponent } from '../confirm/confirm.component';
+import _ from 'lodash';
+
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -22,7 +26,7 @@ export class QuizComponent implements OnInit {
   selectedEntry: any;
   choice: string;
 
-  questions: object = {};
+  questions: any;
   quiz: object = {};
   quizForm: NgForm;
 
@@ -30,26 +34,39 @@ export class QuizComponent implements OnInit {
   student: any;
   email: string;
 
-  MYJSON = JSON;
-
-  res: any;
-
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer, 
+    public dialog: MdDialog
   ) {}
   
+  confirmParticipation() {
+    let dialogRef = this.dialog.open(ConfirmComponent, {
+      position: {
+      top: '',
+      bottom: '100px',
+      left: '250px',
+      right: ''
+      },
+      height: '175px',
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe(result => { });
+  }
+  
   escapeHtml(unsafe) {
-    try {
-      var html = unsafe.replace(/{/g, "\{")
-                       .replace(/}/g, "\}");
-    } catch (error) {
-      html = unsafe;
-    }
-    return html;
+    // try {
+    //   var html = unsafe.replace(/\{/g, "{")
+    //                    .replace(/\}/g, "}")
+    //                   //  .replace(/\\/g, "\\")
+    //                    .replace(/;/g, ";")
+    // } catch (error) {
+    //   html = unsafe;
+    // }
+    return unsafe;
   }
 
   ngOnInit() { 
@@ -58,8 +75,6 @@ export class QuizComponent implements OnInit {
     this.getStudent();
   }
 
-
-  // http://localhost:8080//quiz/student/{email}
   getQuiz() {
     console.log("in getQuiz - email is " + this.email);
     this.dataService.getQuizRecords( "quiz", "student", this.email )
@@ -67,10 +82,17 @@ export class QuizComponent implements OnInit {
         quiz => {
           this.quiz = quiz;
           this.questions = quiz.questions;
+
+          for(let i =0; i < this.questions.length; i++){
+            if(_.isEmpty(this.questions[i])){
+              this.questions.splice(i, 1)
+            }
+          }
+          console.log(this.questions)
+          
         },
         error => this.errorMessage = <any>error);
   }
-
 
   getStudent() {
     this.route.params
@@ -80,8 +102,6 @@ export class QuizComponent implements OnInit {
         error =>  this.errorMessage = <any>error);
   }  
 
-
-  // POST: http://localhost:8080/quizResults/add/{quizId}/{studentId}
   saveQuiz(quizForm: NgForm) {
     console.log("email: " + this.email);
     console.log("studentId: " + this.student.studentId);
@@ -96,51 +116,38 @@ export class QuizComponent implements OnInit {
             providedAnswer: entry.select
         })
     });
-
-    // let quiz = {
-    //   quizId: quizForm.value.quizId,
-    //   entries: []
-    // }
-    // this.entries.forEach(entry => {
-    //     quiz.entries.push({
-    //         questionId: entry.questionId,
-    //         answer: entry.select
-    //     })
-    // });
     
-    console.log(JSON.stringify(quiz));
+    //console.log(JSON.stringify(quiz));
 
     var str = JSON.stringify(quiz);
     var obj = JSON.parse(str);
-
     this.dataService.addQuizRecord("quizResults", obj, quizForm.value.quizId, this.student.studentId)
       .subscribe(
         res => this.successMessage = "Record added successfully",
         error =>  this.errorMessage = <any>error
     );  
 
-    // insert quiz acknowledgment here
-    
+    this.confirmParticipation();
+
     localStorage.removeItem('email');
     this.router.navigate( ['/student'] );
-  }
+  } // end saveQuiz
 
-
-    onSelectionChange(entry, choice) {
-      this.selectedEntry = entry;
-      this.selectedEntry["select"] = choice;
-
-      //console.log(this.selectedEntry);
-
-      for (let i = 0; i < this.entries.length; i++) {
-        if (this.selectedEntry.questionId == this.entries[i].questionId) {
-            this.entries[i] = this.selectedEntry;
-            //console.log("question " + this.selectedEntry.questionId + " already exists in array - overlaying");
-            return;
-        }
+  // This is executed by an event on the web page. 
+  onSelectionChange(entry, choice) {
+    this.selectedEntry = entry;
+    this.selectedEntry["select"] = choice;
+    //console.log(this.selectedEntry);
+    // for (let i = 0; i < this.entries.length; i++) {
+    this.entries.forEach(entree => {
+      if (this.selectedEntry.questionId == entree.questionId) {
+          entree = this.selectedEntry;
+          //console.log("question " + this.selectedEntry.questionId + " already exists in array - overlaying");
+          return;
       }
-      //console.log("question " + this.selectedEntry.questionId + " does not exist in array - pushing");
-      this.entries.push(this.selectedEntry);
-    }
+    });
+    //console.log("question " + this.selectedEntry.questionId + " does not exist in array - pushing");
+    this.entries.push(this.selectedEntry);
+  } // end onSelectionChange
 
-}
+}  // end QuizComponent

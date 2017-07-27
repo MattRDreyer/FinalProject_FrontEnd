@@ -10,7 +10,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
 import { DataService } from './data.service';
-import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
+
+import { ConfirmComponent } from './confirm/confirm.component';
 
 import { StudentComponent } from './student/student.component';
 import { StudentFormComponent } from './student-form/student-form.component';
@@ -29,7 +30,7 @@ import { StatusMessageComponent } from './status-message/status-message.componen
     AppComponent,
     NavigationComponent,
     HomeComponent,
-    DeleteConfirmComponent,
+    ConfirmComponent,
     StudentComponent,
     StudentFormComponent,
     QuizComponent,
@@ -49,7 +50,7 @@ import { StatusMessageComponent } from './status-message/status-message.componen
     BrowserAnimationsModule,
     FormsModule
   ],
-  entryComponents: [DeleteConfirmComponent],
+  entryComponents: [ConfirmComponent],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { DataService } from '../data.service'
-import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
+import { ConfirmComponent } from '../confirm/confirm.component'
 import { fadeInAnimation } from '../animations/fade-in.animation';
 
 @Component({
@@ -32,7 +32,7 @@ export class EventComponent implements OnInit {
 
   deleteEvent(eventId:number) {
   // console.log(eventId);
-    let dialogRef = this.dialog.open(DeleteConfirmComponent);
+    let dialogRef = this.dialog.open(ConfirmComponent);
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.dataService.deleteRecord("event", eventId)
