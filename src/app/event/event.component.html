@@ -12,6 +12,7 @@
 
 <a class="btn btn-primary" [routerLink]="['/event/add/']">Add Event</a>&nbsp;
 
+<!--<a (click)="clickEvent(event)"-->
 
 <br><br><br>
 
@@ -22,7 +23,7 @@
       <th>Activate Event</th>
       <th>Event Date</th>
       <th>Event Name</th>
-      <th>Recruiter</th>
+      <!--<th>Recruiter</th>-->
       <!--<th>Recruiter ID</th>-->
       <th>Admin</th>
     </tr>
@@ -31,17 +32,17 @@
     <tr *ngFor="let event of events">
       <!--<td>{{event.eventId}}</td>-->
       <td class="text-center">
-        <a class="btn btn-primary" [routerLink]="['/student']">Activate Event</a> 
+        <a (click)="clickEvent(event)" [routerLink]="['/event/activate/', event.eventId]" class="btn btn-primary" role="button">Activate Event</a> 
         </td>
     
       <td>{{event.eventDate}}</td>
       <td> <a href="/event/students/{{event.eventId}}">
         {{event.eventName}}
         </a></td>
-      <td><span *ngFor="let recruiter of event.recruiters">
+      <!--<td><span *ngFor="let recruiter of event.recruiters">
         {{recruiter.firstName}} {{recruiter.lastName}} <br />
       </span> 
-        </td>
+        </td>-->
       <td class="text-center">
         <a class="btn btn-primary" [routerLink]="['/event/edit/', event.eventId]">Edit Event</a>&nbsp;
       <button (click)="deleteEvent(event.eventId)" class="btn btn-danger">Delete Event</button>

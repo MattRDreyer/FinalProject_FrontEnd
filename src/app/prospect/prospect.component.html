@@ -25,27 +25,29 @@
 <table class="table table-striped table-bordered" id="dataTable" style="width:100%">
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
+      <th>Name</th>
       <th>University</th>
       <th>Major</th>
       <th>GPA</th>
       <th>Graduation Date</th>
       <th>Email</th>
       <th>Phone Number</th>
-      <th>Event</th>
+      <!--<th>Event</th>-->
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let student of students">
-      <td>{{student.firstName}}</td>
-      <td>{{student.lastName}}</td>
+      <td>{{student.firstName}} {{student.lastName}}</td>
       <td>{{student.university}}</td>
       <td>{{student.major}}</td>
       <td>{{student.gpa}}</td>
-      <td>{{student.graduationYear}}</td>
+      <td>{{student.graduationMonth}} {{student.graduationYear}}</td>
       <td>{{student.email}}</td>
       <td>{{student.phoneNumber}}</td>
+      <!--<td><span *ngFor="let event of students.event">
+        {{eventName}} <br />
+      </span> 
+        </td>-->
     
 
       <!--<td class="text-center">  EDIT AND DELETE BUTTONS IF NEEDED LATER

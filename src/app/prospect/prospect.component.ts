@@ -62,7 +62,7 @@ export class ProspectComponent implements OnInit {
         students =>{
           this.students = students.students
         },
-        error => console.log("shit didnt go right")
+        error => console.log("students cannot be accessed")
       );
 
     // let eventInfo = localStorage.getItem('currentEventId');
@@ -75,25 +75,7 @@ export class ProspectComponent implements OnInit {
 
  
   
-  //saves student to the databbase using the service to call the api
-  //if we had a id on the form and it is a number then edit otherwise create
-  // saveStudent(student: NgForm){
-  //   console.log("studentId = " + student.value.studentId)
-  //   if(typeof student.value.studentId === "number"){
-  //     console.log("Update by ID " + student.value.studentId)
-  //     this.dataService.editStudentRecord("student", student.value, student.value.studentId)
-  //         .subscribe(
-  //           student => this.successMessage = "Record updated successfully",
-  //           error =>  this.errorMessage = <any>error);
-  //   }else{
-  //     console.log("Adding Student")
-  //     this.dataService.addStudentRecord("student", student.value)
-  //         .subscribe(
-  //           student => this.successMessage = "Record added successfully",
-  //           error =>  this.errorMessage = <any>error);
-  //           this.student = {};
-  //   }
-  // }
+
 
   //everything below here is form validation boiler plate
   // ngAfterViewChecked() {

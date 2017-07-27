@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
-
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataService } from '../data.service'
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
 import { fadeInAnimation } from '../animations/fade-in.animation';
@@ -20,7 +20,12 @@ export class EventComponent implements OnInit {
   mode = 'Observable';
   event: object;
 
-  constructor (private dataService: DataService, public dialog: MdDialog) {}
+  constructor (
+    private dataService: DataService, 
+    public dialog: MdDialog,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
    ngOnInit() { this.getEventRecruiters(); 
    console.log()
@@ -35,15 +40,15 @@ export class EventComponent implements OnInit {
        error =>  this.errorMessage = <any>error);
   }
 
-  populateProspects(event) {
-    
-    let eventId = event.eventId;
-    this.dataService.returnProspects(`event/students/${eventId}`)
-      .subscribe(
-      event =>
-      localStorage.setItem("currentEventId", eventId)  //currentEvent = potato... can be used later to retrieve get for other functions
-        
-      )}
+  clickEvent(event){
+    let eventNumber = event.eventId;
+    console.log(eventNumber)
+       this.dataService.eventLogin(`event/activate/${eventNumber}`)
+          .subscribe(
+              event => this.event = event,
+              error =>  this.errorMessage = <any>error);
+             
+  }
 
 
   deleteEvent(eventId:number) {

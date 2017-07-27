@@ -37,6 +37,7 @@ const routes: Routes = [
   { path: 'recruiter/events/:recruiterId',  component: EventComponent },
   { path: 'event/add', component: EventFormComponent },
   { path: 'event/edit/:eventId', component: EventFormComponent },
+  { path: 'event/activate/:eventId',  component: StudentComponent }, 
 ];
  
 @NgModule({

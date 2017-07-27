@@ -82,7 +82,7 @@ export class DataService {
     }
 
     recruiterLogin(endpoint: string):  Observable<any> {
-        let apiUrl = `${this.baseUrl}${endpoint}`;  //  /username/password?
+        let apiUrl = `${this.baseUrl}${endpoint}`;
         console.log("login url = " + apiUrl);
         return this.http.get(apiUrl)
             .map(this.extractData)
@@ -131,11 +131,24 @@ export class DataService {
             .catch(this.handleError);
     }
 
+    logout() {
+        // remove recruiter from local storage
+        localStorage.removeItem('currentUser');
+    }
+
 
     //Events get all, by id, Add, update and delete
 
     getRecord(endpoint: string, id): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
+        return this.http.get(apiUrl)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    eventLogin(endpoint: string):  Observable<object> {
+        let apiUrl = `${this.baseUrl}${endpoint}`;
+        console.log("event to student url = " + apiUrl);
         return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
