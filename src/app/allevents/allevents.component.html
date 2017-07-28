@@ -1,19 +1,16 @@
-<section @fadeInAnimation>
+<section>
   <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
-    <li class="active">Events</li>
+    <li class="active">All Events</li>
   </ol>
 
   <br/>
 
   <app-status-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-status-message>
 
-  <h2>Events</h2>
+  <h2>All Events</h2>
 
-  <a class="btn btn-primary" [routerLink]="['/event/add/']">Add Event</a>&nbsp;
-  <a class="btn btn-primary" [routerLink]="['/allevents']">View All Events</a>&nbsp;
-
-
+  <a class="btn btn-primary" routerLink="/event">Return to MyEvents</a>
 
   <br><br><br>
   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width:100%">

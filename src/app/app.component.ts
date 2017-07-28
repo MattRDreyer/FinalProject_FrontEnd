@@ -6,7 +6,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { RecruiterComponent } from './recruiter/recruiter.component';
 import { RegisterComponent } from './register/register.component';
 import { ProspectComponent } from './prospect/prospect.component';
-
+import { EventComponent } from './event/event.component';
 
 
 @Component({

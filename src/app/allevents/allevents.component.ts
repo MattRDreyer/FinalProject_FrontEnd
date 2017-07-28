@@ -1,22 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { DataService } from '../data.service'
-import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
-import { fadeInAnimation } from '../animations/fade-in.animation';
-
+import { ConfirmComponent } from '../confirm/confirm.component'
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css'],
-  animations: [fadeInAnimation]
+  selector: 'app-allevents',
+  templateUrl: './allevents.component.html',
+  styleUrls: ['./allevents.component.css']
 })
-
-export class EventComponent implements OnInit {
-  dtOptions: any = {};
+export class AlleventsComponent implements OnInit {
+dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
   events: any[];
   errorMessage: string;
@@ -40,17 +36,18 @@ export class EventComponent implements OnInit {
     this.getEventRecruiters();
   }
 
-    getEventRecruiters(){
-    var recruiterInfo = localStorage.getItem('currentUser');
-    this.dataService.getRecruiterIdRecords(`recruiter/events/${recruiterInfo}`)
+  
+  getEventRecruiters() {
+    this.dataService.getRecords("event/recruiters")
       .subscribe(
-        events => {
-          this.events = events
-          this.dtTrigger.next()
-        },
-        error =>  this.errorMessage = <any>error
-      );
+      recruiterArray => {
+        this.events = recruiterArray
+        this.dtTrigger.next();
+      },
+      error => this.errorMessage = <any>error
+      )
   }
+
 
     populateProspects(event) {
     let eventId = event.eventId;
@@ -66,15 +63,14 @@ export class EventComponent implements OnInit {
     console.log(eventNumber)
        this.dataService.eventLogin(`event/activate/${eventNumber}`)
           .subscribe(
-              event => {localStorage.setItem("currentEvent", eventNumber)  //could also pass event to pass full object
-              },
+              event => this.event = event,
               error =>  this.errorMessage = <any>error);
              
   }
 
   deleteEvent(eventId: number) {
     // console.log(eventId);
-    let dialogRef = this.dialog.open(DeleteConfirmComponent);
+    let dialogRef = this.dialog.open(ConfirmComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.dataService.deleteRecord("event", eventId)
@@ -84,17 +80,7 @@ export class EventComponent implements OnInit {
 
       }
 
-      //This is useful if we have to pull all the events for all the recruiters
-  // getEventRecruiters() {
-  //   this.dataService.getRecords("event/recruiters")
-  //     .subscribe(
-  //     recruiterArray => {
-  //       this.events = recruiterArray
-  //       this.dtTrigger.next();
-  //     },
-  //     error => this.errorMessage = <any>error
-  //     )
-  // }
+
 
     });
   }

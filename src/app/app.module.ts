@@ -11,7 +11,6 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
 import { DataService } from './data.service';
-import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 import { StatusMessageComponent } from './status-message/status-message.component';
 import { CommonModule } from '@angular/common'; 
 import { Subject } from 'rxjs/Rx';
@@ -27,6 +26,9 @@ import { EventComponent } from './event/event.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { ProspectComponent } from './prospect/prospect.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { ConfirmComponent } from './confirm/confirm.component';
+import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
+import { AlleventsComponent } from './allevents/allevents.component';
 
 
 
@@ -41,7 +43,6 @@ import { QuizComponent } from './quiz/quiz.component';
     StatusMessageComponent,
     StudentComponent,
     StudentFormComponent,
-    DeleteConfirmComponent,
     RecruiterComponent,
     RecruiterFormComponent,
     RegisterComponent,
@@ -49,6 +50,9 @@ import { QuizComponent } from './quiz/quiz.component';
     EventFormComponent,
     ProspectComponent,
     QuizComponent,
+    ConfirmComponent,
+    AlleventsComponent,
+     DeleteConfirmComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,7 @@ import { QuizComponent } from './quiz/quiz.component';
     BrowserAnimationsModule,
     FormsModule
   ],
-  entryComponents: [DeleteConfirmComponent],
+  entryComponents: [ConfirmComponent],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

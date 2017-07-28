@@ -83,7 +83,7 @@ export class EventFormComponent implements OnInit {
     }
     this.event = {};
     this.eventForm.reset();
-    // this.router.navigate( ['/event'] );
+    this.router.navigate( ['/event'] );
   }
 
   byRecruiterId(item1, item2){

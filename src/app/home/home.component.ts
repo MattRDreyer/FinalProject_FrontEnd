@@ -14,5 +14,9 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentEvent');
+      
   }
 }

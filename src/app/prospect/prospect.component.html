@@ -33,7 +33,7 @@
       <th>Graduation Date</th>
       <th>Email</th>
       <th>Phone Number</th>
-      <th>Event</th>
+      <!-- <th>Event</th> -->
     </tr>
   </thead>
   <tbody>
@@ -46,8 +46,7 @@
       <td>{{student.graduationYear}}</td>
       <td>{{student.email}}</td>
       <td>{{student.phoneNumber}}</td>
-    
-
+      <td>{{student.eventName}}</td>
       <!--<td class="text-center">  EDIT AND DELETE BUTTONS IF NEEDED LATER
         <a class="btn btn-primary" [routerLink]="['/student/edit/', student.studentId]">Edit</a>&nbsp;
         <button (click)="deleteStudent(student.studentId)" class="btn btn-danger">Delete</button>

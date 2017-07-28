@@ -13,8 +13,6 @@
         </button>
     </div> 
 
-    <br><br><br><br><br>
-
   <!-- Note: ngSubmit will fire because routerLink is re-routing us to studentForm -->
   <form novalidate (ngSubmit)="authenticate(studentForm)"  #studentForm="ngForm" class="form-horizontal">
 
@@ -36,6 +34,8 @@
     </div>
 
   </form>
+
+  <a [routerLink]="['/home/']" class="btn btn-secondary" role="button">Recruiter Logout</a>
 
 
     <!-- two-day data bind to email property in student.component.ts 

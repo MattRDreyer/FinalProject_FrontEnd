@@ -14,6 +14,7 @@ import { QuizComponent }   from '../quiz/quiz.component';
 
 import { EventComponent }   from '../event/event.component';
 import { EventFormComponent }   from '../event-form/event-form.component';
+import { AlleventsComponent } from '../allevents/allevents.component';
 
  
 const routes: Routes = [
@@ -35,9 +36,11 @@ const routes: Routes = [
 
 
   { path: 'event',  component: EventComponent },
-    { path: 'recruiter/events/:recruiterId',  component: EventComponent },
+  { path: 'recruiter/events/:recruiterId',  component: EventComponent },
   { path: 'event/add', component: EventFormComponent },
   { path: 'event/edit/:eventId', component: EventFormComponent },
+  { path: 'event/activate/:eventId',  component: StudentComponent },
+  { path: 'allevents', component: AlleventsComponent },
 ];
  
 @NgModule({

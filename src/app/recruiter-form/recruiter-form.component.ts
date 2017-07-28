@@ -1,4 +1,3 @@
-
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';

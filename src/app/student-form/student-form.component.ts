@@ -6,6 +6,10 @@ import { NgForm } from '@angular/forms';
 import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
 
+// lodash gives us the ability to check for an empty student object
+// lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, strings, etc.
+import _ from 'lodash';
+
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
@@ -26,7 +30,10 @@ export class StudentFormComponent implements OnInit {
   errorMessage: string;
 
   //what we actually got from the service when finding by email
-  student: object;
+  student: any = {};
+
+  email: string;
+  default_email: string;
 
   constructor(
     private dataService: DataService,
@@ -36,43 +43,58 @@ export class StudentFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-        this.route.params
-          .subscribe((params: Params) => {
-            (params['email']) ? this.getRecordForEdit() : null;
-          });
+    this.route.params
+      .subscribe((params: Params) => {
+        if (params['email']) {
+          this.getRecordForEdit()
+          this.default_email = params['email']
+        }
+    });
   }
 
   getRecordForEdit(){
-    //console.log("hola")
     this.route.params
-        .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", params['email']))
+      .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", params['email']))
       .subscribe(
-        student => this.student = student,
+        student => {
+          if(_.isEmpty(student)) {
+              this.student.email = this.default_email
+          } else {
+              this.student = student
+          }
+        },
         error =>  this.errorMessage = <any>error);
   }
+  
 
   //saves student to the databbase using the service to call the api
   //if we had a id on the form and it is a number then edit otherwise create
   saveStudent(student: NgForm){
-    //console.log("Student Id in student-form.componet.ts: " + student.value.studentId);
-
+    localStorage.setItem('email', student.value.email);
+    console.log("saveStudent() - Email is: " + student.value.email);
+    
     if(typeof student.value.studentId === "number"){
-      console.log("saveStudent - Update by ID " + student.value.studentId)
+      console.log("saveStudent - Update by ID: " + student.value.studentId)
       this.dataService.editStudentRecord("student", student.value, student.value.studentId)
           .subscribe(
-            student => this.successMessage = "Record updated successfully",
+            student => { 
+              this.successMessage = "Record updated successfully"
+              this.router.navigate( ['/quiz'] )
+          },
             error =>  this.errorMessage = <any>error);
     }else{
       console.log("saveStudent - Adding New Student")
       this.dataService.addStudentRecord("student", student.value)
           .subscribe(
-            student => this.successMessage = "Record added successfully",
+            student => {
+              this.successMessage = "Record added successfully"
+              this.router.navigate( ['/quiz'] )
+            },
             error =>  this.errorMessage = <any>error);
             this.student = {};
-    }
-        localStorage.setItem('studentId', student.value.studentId);
-        this.router.navigate( ['/quiz'] );
+    }        
   }
+
 
 
   //everything below here is form validation boiler plate
@@ -115,7 +137,7 @@ export class StudentFormComponent implements OnInit {
 	// private String phoneNumber;
 	// private String graduationMonth;
 	// private String graduationYear;
-
+	
   //fields that need to be validated
   formErrors = {
     'email': '',
