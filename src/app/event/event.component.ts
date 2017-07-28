@@ -46,10 +46,10 @@ export class EventComponent implements OnInit {
        this.dataService.eventLogin(`event/activate/${eventNumber}`)
         .subscribe(
         event => {
-        localStorage.setItem("currentEvent", eventNumber)  //currentUser = potato... can be used later to retrieve get for other functions
+        localStorage.setItem("currentEvent", eventNumber)  //could also pass event to pass full object
         
       },
-      error => this.errorMessage = "Login Invalid.  Please try again");
+      error =>  this.errorMessage = <any>error);
   }
 
 
