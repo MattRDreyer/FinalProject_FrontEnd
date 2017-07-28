@@ -78,7 +78,7 @@ export class EventFormComponent implements OnInit {
       console.log(this.eventForm.value)
       this.dataService.addEventRecord("event", this.eventForm.value)
           .subscribe(
-           event => { this.successMessage = "Record(s) updated succesfully"; this.getEventRecruiters();},
+           event => { this.successMessage = "Record(s) created succesfully"; this.getEventRecruiters();},
             error =>  this.errorMessage = <any>error);
     }
     this.event = {};

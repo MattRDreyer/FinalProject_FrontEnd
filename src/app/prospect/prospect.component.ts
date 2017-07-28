@@ -60,7 +60,7 @@ export class ProspectComponent implements OnInit {
         students =>{
           this.students = students.students
         },
-        error => console.log("shit didnt go right")
+        error => console.log("students cannot be accessed")
       );
   }
 }

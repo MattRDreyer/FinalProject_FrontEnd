@@ -63,7 +63,7 @@ import { AlleventsComponent } from './allevents/allevents.component';
     BrowserAnimationsModule,
     FormsModule
   ],
-  entryComponents: [ConfirmComponent],
+  entryComponents: [ConfirmComponent, DeleteConfirmComponent],
   providers: [DataService],
   bootstrap: [AppComponent]
 })
