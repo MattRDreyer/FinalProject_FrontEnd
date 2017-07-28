@@ -26,6 +26,9 @@ import { ProspectComponent } from './prospect/prospect.component';
 import { StatusMessageComponent } from './status-message/status-message.component';
 import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 
+import { DataTablesModule } from 'angular-datatables';
+import { AlleventsComponent } from './allevents/allevents.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +45,8 @@ import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.componen
     RegisterComponent,
     ProspectComponent,
     StatusMessageComponent,
-    DeleteConfirmComponent
+    DeleteConfirmComponent,
+    AlleventsComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.componen
     HttpModule,
     MaterialModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    DataTablesModule
   ],
   entryComponents: [ConfirmComponent, DeleteConfirmComponent],
   providers: [DataService],

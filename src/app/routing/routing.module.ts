@@ -16,6 +16,8 @@ import { EventComponent }   from '../event/event.component';
 import { EventFormComponent }   from '../event-form/event-form.component';
 
 import { HomeComponent }   from '../home/home.component';
+
+import { AlleventsComponent } from '../allevents/allevents.component';
  
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -34,6 +36,8 @@ const routes: Routes = [
   { path: 'register/add',  component: RegisterComponent },
   { path: 'prospectlist',  component: ProspectComponent },
   { path: 'event/students/:eventId',  component: ProspectComponent },
+
+  { path: 'allevents', component: AlleventsComponent },
 
   { path: 'event',  component: EventComponent },
   { path: 'recruiter/events/:recruiterId',  component: EventComponent },

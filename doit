@@ -1,0 +1,2 @@
+npm install datatables.net-buttons --save
+npm install datatables.net-buttons-dt --save

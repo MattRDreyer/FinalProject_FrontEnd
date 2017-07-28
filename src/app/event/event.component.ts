@@ -5,6 +5,9 @@ import { DataService } from '../data.service'
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
 import { fadeInAnimation } from '../animations/fade-in.animation';
 
+import { Subject } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
@@ -12,6 +15,9 @@ import { fadeInAnimation } from '../animations/fade-in.animation';
   animations: [fadeInAnimation]
 })
 export class EventComponent implements OnInit {
+
+  dtOptions: any = {};
+  dtTrigger: Subject<any> = new Subject();
 
   errorMessage: string;
   successMessage: string;
@@ -27,27 +33,47 @@ export class EventComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-   ngOnInit() { this.getEventRecruiters(); 
-   console.log()
-  }
+ngOnInit(): void {
+   this.dtOptions = {
+     paging: true,
+     searching: true,
+     dom: 'Bfrtlip',
+     buttons: [
+       'copy',
+       'print',
+       'excel'
+     ]
+   }
+   this.getEventRecruiters();
+ }
 
-  getEventRecruiters(){
-    var recruiterInfo = localStorage.getItem('currentUser');
-    //console.log('recruiterId: ' + recruiterId);
-    this.dataService.getRecruiterIdRecords(`recruiter/events/${recruiterInfo}`)
-      .subscribe(
-       events => this.events = events,
-       error =>  this.errorMessage = <any>error);
-  }
+getEventRecruiters(){
+   var recruiterInfo = localStorage.getItem('currentUser');
+   this.dataService.getRecruiterIdRecords(`recruiter/events/${recruiterInfo}`)
+     .subscribe(
+       events => {
+         this.events = events
+         this.dtTrigger.next()
+       },
+       error =>  this.errorMessage = <any>error
+     );
+ }
 
   clickEvent(event){
     let eventNumber = event.eventId;
-    console.log(eventNumber)
-       this.dataService.eventLogin(`event/activate/${eventNumber}`)
-          .subscribe(
-              event => this.event = event,
-              error =>  this.errorMessage = <any>error);
-             
+
+    localStorage.setItem("currentEvent", eventNumber)  //could also pass event to pass full object
+    
+    console.log(localStorage.getItem('currentEvent') || null);
+    
+    // this.dataService.eventLogin(`event/activate/${eventNumber}`)
+    //     .subscribe(
+    //     event => {
+    //     console.log("setting event: " + eventNumber);
+    //     localStorage.setItem("currentEvent", eventNumber)  //could also pass event to pass full object
+        
+    //   },
+    //   error =>  this.errorMessage = <any>error);
   }
 
 

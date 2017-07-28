@@ -1,0 +1,48 @@
+<section>
+  <ol class="breadcrumb">
+    <li><a routerLink="/home">Home</a></li>
+    <li class="active">All Events</li>
+  </ol>
+
+  <br/>
+
+  <app-status-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-status-message>
+
+  <h2>All Events</h2>
+
+  <a class="btn btn-primary" routerLink="/event">Return to MyEvents</a>
+
+  <br><br><br>
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width:100%">
+    <thead>
+      <tr>
+        <th>Activate Event</th>
+        <th>Event Date</th>
+        <th>Event Name</th>
+        <th>Recruiter</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td class="text-center">
+          <a class="btn btn-primary" [routerLink]="['/student']">Activate Event</a>
+        </td>
+
+        <td>{{event.eventDate}}</td>
+        <td> <a href="/event/students/{{event.eventId}}">
+        {{event.eventName}}
+        </a></td>
+        <td><span *ngFor="let recruiter of event.recruiters">
+        {{recruiter.firstName}} {{recruiter.lastName}} <br />
+        </span>
+        </td>
+        <td class="text-center">
+          <a class="btn btn-primary" [routerLink]="['/event/edit/', event.eventId]">Edit Event</a>&nbsp;
+          <button (click)="deleteEvent(event.eventId)" class="btn btn-danger">Delete Event</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
