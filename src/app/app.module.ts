@@ -24,6 +24,7 @@ import { RecruiterFormComponent } from './recruiter-form/recruiter-form.componen
 import { RegisterComponent } from './register/register.component';
 import { ProspectComponent } from './prospect/prospect.component';
 import { StatusMessageComponent } from './status-message/status-message.component';
+import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { StatusMessageComponent } from './status-message/status-message.componen
     RecruiterFormComponent,
     RegisterComponent,
     ProspectComponent,
-    StatusMessageComponent
+    StatusMessageComponent,
+    DeleteConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,7 @@ import { StatusMessageComponent } from './status-message/status-message.componen
     BrowserAnimationsModule,
     FormsModule
   ],
-  entryComponents: [ConfirmComponent],
+  entryComponents: [ConfirmComponent, DeleteConfirmComponent],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

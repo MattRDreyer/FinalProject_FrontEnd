@@ -51,7 +51,7 @@ export class QuizComponent implements OnInit {
       left: '250px',
       right: ''
       },
-      height: '175px',
+      height: '190px',
       width: '450px',
     });
     dialogRef.afterClosed().subscribe(result => { });
@@ -83,12 +83,12 @@ export class QuizComponent implements OnInit {
           this.quiz = quiz;
           this.questions = quiz.questions;
 
-          for(let i =0; i < this.questions.length; i++){
-            if(_.isEmpty(this.questions[i])){
-              this.questions.splice(i, 1)
-            }
-          }
-          console.log(this.questions)
+          // for(let i =0; i < this.questions.length; i++){
+          //   if(_.isEmpty(this.questions[i])){
+          //     this.questions.splice(i, 1)
+          //   }
+          // }
+          // console.log(this.questions)
           
         },
         error => this.errorMessage = <any>error);

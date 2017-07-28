@@ -12,37 +12,44 @@
 
 <a class="btn btn-primary" [routerLink]="['/event/add/']">Add Event</a>&nbsp;
 
+<!--<a (click)="clickEvent(event)"-->
 
 <br><br><br>
 
  <table class="table table-striped table-bordered" id="dataTable" style="width:100%">
   <thead>
     <tr>
-      <th>Event ID</th>
+      <!--<th>Event ID</th>-->
+      <th>Activate Event</th>
       <th>Event Date</th>
       <th>Event Name</th>
-      <th>Recruiter</th>
+      <!--<th>Recruiter</th>-->
+      <!--<th>Recruiter ID</th>-->
       <th>Admin</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let event of events">
-      <td>{{event.eventId}}</td>
+      <!--<td>{{event.eventId}}</td>-->
+      <td class="text-center">
+        <a (click)="clickEvent(event)" [routerLink]="['/event/activate/', event.eventId]" class="btn btn-primary" role="button">Activate Event</a> 
+        </td>
+    
       <td>{{event.eventDate}}</td>
-      <td>{{event.eventName}}</td>
-      <td><span *ngFor="let recruiter of event.recruiters">
+      <td> <a href="/event/students/{{event.eventId}}">
+        {{event.eventName}}
+        </a></td>
+      <!--<td><span *ngFor="let recruiter of event.recruiters">
         {{recruiter.firstName}} {{recruiter.lastName}} <br />
       </span> 
-        </td>
+        </td>-->
       <td class="text-center">
         <a class="btn btn-primary" [routerLink]="['/event/edit/', event.eventId]">Edit Event</a>&nbsp;
       <button (click)="deleteEvent(event.eventId)" class="btn btn-danger">Delete Event</button>
       </td>
-    </tr>
+      </tr>
   </tbody>
 </table> 
 
 
 </section>
-
-

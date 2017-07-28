@@ -11,7 +11,6 @@ import { fadeInAnimation } from '../animations/fade-in.animation';
   styleUrls: ['./register.component.css'],
   animations: [fadeInAnimation]
 })
-
 export class RegisterComponent implements OnInit {
   //this is needed for form on the page so we can do things like validation
   //we can discuss this in detail when needed

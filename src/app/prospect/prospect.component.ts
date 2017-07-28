@@ -28,7 +28,7 @@ export class ProspectComponent implements OnInit {
 
   //what we actually got from the service when finding by email
   prospect: object;
-  student: object;
+  students: object;
 
   constructor(
     private dataService: DataService,
@@ -36,42 +36,46 @@ export class ProspectComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit() { this.getStudents(); }
-
-  getStudents() {
-    this.dataService.getProspectRecord("student")
+  ngOnInit() { 
+    this.route.params
       .subscribe(
-        student => this.student = student,
-        error =>  this.errorMessage = <any>error);
-  }
+        (params: Params) => {
+          if(+params['eventId']){
+            this.getProspectsByEventId(+params['eventId'])
+          }
+      });
+   }
 
-//   $timeout(function() {
-//    $("#dataTable-buttons").dataTable({
-//    ...
-//    })
-// })
+  // getStudents() {
+  //   this.dataService.getProspectRecord("student")
+  //     .subscribe(
+  //       student => this.students = student,
+  //       error =>  this.errorMessage = <any>error);
+  // }
+
+  // eventInfo: number;
+
+  getProspectsByEventId(id: number){
+
+    this.dataService.getRecruiterIdRecords(`event/students/${id}`)
+      .subscribe(
+        students =>{
+          this.students = students.students
+        },
+        error => console.log("students cannot be accessed")
+      );
+
+    // let eventInfo = localStorage.getItem('currentEventId');
+    // console.log('eventInfo')
+    // this.dataService.getRecruiterIdRecords(`event/students/${eventInfo}`)
+    //   .subscribe(
+    //    student => this.student = student,
+    //    error =>  this.errorMessage = <any>error);
+  }
 
  
   
-  //saves student to the databbase using the service to call the api
-  //if we had a id on the form and it is a number then edit otherwise create
-  // saveStudent(student: NgForm){
-  //   console.log("studentId = " + student.value.studentId)
-  //   if(typeof student.value.studentId === "number"){
-  //     console.log("Update by ID " + student.value.studentId)
-  //     this.dataService.editStudentRecord("student", student.value, student.value.studentId)
-  //         .subscribe(
-  //           student => this.successMessage = "Record updated successfully",
-  //           error =>  this.errorMessage = <any>error);
-  //   }else{
-  //     console.log("Adding Student")
-  //     this.dataService.addStudentRecord("student", student.value)
-  //         .subscribe(
-  //           student => this.successMessage = "Record added successfully",
-  //           error =>  this.errorMessage = <any>error);
-  //           this.student = {};
-  //   }
-  // }
+
 
   //everything below here is form validation boiler plate
   // ngAfterViewChecked() {
@@ -165,4 +169,3 @@ export class ProspectComponent implements OnInit {
   //   },
   // };
 }
-

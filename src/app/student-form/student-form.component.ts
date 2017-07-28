@@ -32,6 +32,8 @@ export class StudentFormComponent implements OnInit {
   //what we actually got from the service when finding by email
   student: any = {};
 
+  currentEvent: string;
+
   email: string;
   default_email: string;
 
@@ -43,6 +45,8 @@ export class StudentFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.currentEvent = localStorage.getItem('currentEvent') || null;
+
     this.route.params
       .subscribe((params: Params) => {
         if (params['email']) {
@@ -73,9 +77,12 @@ export class StudentFormComponent implements OnInit {
     localStorage.setItem('email', student.value.email);
     console.log("saveStudent() - Email is: " + student.value.email);
     
+    // WHEN PERFORMING A PUT OR POST USE THE EVENT ID
+    // PUT: student/studentId/eventId
+    // POST: student/add/eventId
     if(typeof student.value.studentId === "number"){
       console.log("saveStudent - Update by ID: " + student.value.studentId)
-      this.dataService.editStudentRecord("student", student.value, student.value.studentId)
+      this.dataService.editStudentRecord("student", student.value, student.value.studentId, this.currentEvent)
           .subscribe(
             student => { 
               this.successMessage = "Record updated successfully"
@@ -84,7 +91,7 @@ export class StudentFormComponent implements OnInit {
             error =>  this.errorMessage = <any>error);
     }else{
       console.log("saveStudent - Adding New Student")
-      this.dataService.addStudentRecord("student", student.value)
+      this.dataService.addStudentRecord("student", student.value, this.currentEvent)
           .subscribe(
             student => {
               this.successMessage = "Record added successfully"
