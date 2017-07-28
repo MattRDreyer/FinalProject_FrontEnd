@@ -10,41 +10,40 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
 import { DataService } from './data.service';
-import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
-import { StatusMessageComponent } from './status-message/status-message.component';
-import {CommonModule} from '@angular/common';
 
+import { ConfirmComponent } from './confirm/confirm.component';
+import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
+// import { CommonModule} from '@angular/common';
 
 import { StudentComponent } from './student/student.component';
 import { StudentFormComponent } from './student-form/student-form.component';
+
+import { QuizComponent } from './quiz/quiz.component';
+import { EventComponent } from './event/event.component';
+import { EventFormComponent } from './event-form/event-form.component';
 import { RecruiterComponent } from './recruiter/recruiter.component';
 import { RecruiterFormComponent } from './recruiter-form/recruiter-form.component';
 import { RegisterComponent } from './register/register.component';
-import { EventComponent } from './event/event.component';
-import { EventFormComponent } from './event-form/event-form.component';
 import { ProspectComponent } from './prospect/prospect.component';
-import { QuizComponent } from './quiz/quiz.component';
-
-
+import { StatusMessageComponent } from './status-message/status-message.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     HomeComponent,
-    StatusMessageComponent,
+    ConfirmComponent,
     StudentComponent,
     StudentFormComponent,
     DeleteConfirmComponent,
+    QuizComponent,
+    EventComponent,
+    EventFormComponent,
     RecruiterComponent,
     RecruiterFormComponent,
     RegisterComponent,
-    EventComponent,
-    EventFormComponent,
     ProspectComponent,
-    QuizComponent
-    // EventRecruiterComponent
-
+    StatusMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -53,9 +52,8 @@ import { QuizComponent } from './quiz/quiz.component';
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    
   ],
-  entryComponents: [DeleteConfirmComponent],
+  entryComponents: [ConfirmComponent, DeleteConfirmComponent],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

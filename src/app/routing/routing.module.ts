@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: 'student',  component: StudentComponent },  
   { path: 'student/edit/:email', component: StudentFormComponent },
   { path: 'student/add', component: StudentFormComponent },
-    { path: 'quiz',  component: QuizComponent },
+  
+  { path: 'quiz',  component: QuizComponent },
   { path: 'quiz/:email',  component: QuizComponent },
   { path: 'quiz/:studentId',  component: QuizComponent },
 

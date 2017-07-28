@@ -13,10 +13,8 @@
         </button>
     </div> 
 
-  <!-- Note: ngSubmit will fire because routerLink is re-routing us to studentForm -->
+  <!-- Note: ngSubmit will not be executed because routerLink is re-routing us to studentForm -->
   <form novalidate (ngSubmit)="authenticate(studentForm)"  #studentForm="ngForm" class="form-horizontal">
-
-
     <div class="form-group">
       <label for="email" class="col-sm-2 control-label">Email</label>
       <div class="col-sm-4">
@@ -26,20 +24,20 @@
         </span>
       </div>
     </div>
-
     <div class="form-group">
       <div class="col-sm-offset-2 col-sm-10">
         <button [disabled]="!studentForm.form.valid" type="submit" class="btn btn-primary" [routerLink]="[ '/student/edit/', email ]">Submit</button>
       </div>
     </div>
-
   </form>
 
-  <a [routerLink]="['/home/']" class="btn btn-secondary" role="button">Recruiter Logout</a>
-
+ <a [routerLink]="['/home/']" class="btn btn-secondary" role="button">Recruiter Logout</a>
 
     <!-- two-day data bind to email property in student.component.ts 
     <input type="text" [(ngModel)]="email"/>
     <a type="submit" class="btn btn-primary" [routerLink]="[ '/student/edit/', email ]">Submit</a> -->
 
   </section>
+
+ 
+
