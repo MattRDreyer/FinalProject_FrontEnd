@@ -10,6 +10,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
 import { DataService } from './data.service';
+import { DataTablesModule } from 'angular-datatables';
 
 import { ConfirmComponent } from './confirm/confirm.component';
 import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
@@ -26,6 +27,7 @@ import { RecruiterFormComponent } from './recruiter-form/recruiter-form.componen
 import { RegisterComponent } from './register/register.component';
 import { ProspectComponent } from './prospect/prospect.component';
 import { StatusMessageComponent } from './status-message/status-message.component';
+import { AlleventsComponent } from './allevents/allevents.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { StatusMessageComponent } from './status-message/status-message.componen
     RecruiterFormComponent,
     RegisterComponent,
     ProspectComponent,
-    StatusMessageComponent
+    StatusMessageComponent,
+    AlleventsComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { StatusMessageComponent } from './status-message/status-message.componen
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
+    DataTablesModule,
   ],
   entryComponents: [ConfirmComponent, DeleteConfirmComponent],
   providers: [DataService],

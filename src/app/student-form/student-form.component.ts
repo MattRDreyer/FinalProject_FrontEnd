@@ -8,7 +8,7 @@ import { fadeInAnimation } from '../animations/fade-in.animation';
 
 // lodash gives us the ability to check for an empty student object
 // lodash makes JavaScript easier by taking the hassle out of working with arrays, numbers, objects, strings, etc.
-import _ from 'lodash';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-student-form',

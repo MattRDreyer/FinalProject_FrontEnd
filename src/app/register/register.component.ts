@@ -40,8 +40,6 @@ saveRecruiter(recruiter: NgForm){
         .subscribe(
           recruiter => this.successMessage = "Record added successfully.  Please login to begin your session.",
           error =>  this.errorMessage = <any>error);
-          this.register = {};
-          console.log(this.register)
             
     }
  

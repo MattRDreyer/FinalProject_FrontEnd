@@ -2,6 +2,7 @@
 <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
     <li class="active">Events</li>
+    <!--<li class="test">"Welcome" + (recruiter.firstName) + "hi"</li>-->
 </ol>
 
 <br/>
@@ -9,26 +10,27 @@
 <app-status-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-status-message>
 
 <h2>Events</h2>
+<!--<h3>{{recruiter.firstName}}></h3>-->
+
 
 <a class="btn btn-primary" [routerLink]="['/event/add/']">Add Event</a>&nbsp;
+<a class="btn btn-primary" [routerLink]="['/allevents']">View All Events</a>&nbsp;
 
 <br><br><br>
 
- <table class="table table-striped table-bordered" id="dataTable" style="width:100%">
+  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width:100%">
   <thead>
     <tr>
       <!--<th>Event ID</th>-->
       <th>Activate Event</th>
       <th>Event Date</th>
       <th>Event Name</th>
-      <!--<th>Recruiter</th>-->
-      <!--<th>Recruiter ID</th>-->
-      <th>Admin</th>
+      <th>Recruiter</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let event of events">
-      <!--<td>{{event.eventId}}</td>-->
       <td class="text-center">
         <a (click)="clickEvent(event)" [routerLink]="['/event/activate/', event.eventId]" class="btn btn-primary" role="button">Activate Event</a> 
         </td>
@@ -37,10 +39,10 @@
       <td> <a href="/event/students/{{event.eventId}}">
         {{event.eventName}}
         </a></td>
-      <!--<td><span *ngFor="let recruiter of event.recruiters">
+      <td><span *ngFor="let recruiter of event.recruiters">
         {{recruiter.firstName}} {{recruiter.lastName}} <br />
       </span> 
-        </td>-->
+        </td>
       <td class="text-center">
         <a class="btn btn-primary" [routerLink]="['/event/edit/', event.eventId]">Edit Event</a>&nbsp;
       <button (click)="deleteEvent(event.eventId)" class="btn btn-danger">Delete Event</button>

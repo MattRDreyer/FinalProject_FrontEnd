@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { MdDialog, MdDialogConfig } from '@angular/material';
 import { ConfirmComponent } from '../confirm/confirm.component';
-import _ from 'lodash';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-quiz',

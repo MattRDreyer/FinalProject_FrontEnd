@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
+import { Subject } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataService } from '../data.service'
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
@@ -13,6 +16,8 @@ import { fadeInAnimation } from '../animations/fade-in.animation';
 })
 export class EventComponent implements OnInit {
 
+  dtOptions: any = {};
+  dtTrigger: Subject<any> = new Subject();
   errorMessage: string;
   successMessage: string;
   events: any[];
@@ -27,17 +32,36 @@ export class EventComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-   ngOnInit() { this.getEventRecruiters(); 
-   console.log()
+   ngOnInit():
+   void {
+    this.dtOptions = {
+      paging: true,
+      searching: true,
+      dom: 'Bfrtlip',
+      buttons: [
+        'copy',
+        'print',
+        'excel',
+      ]
+    }
+    this.getEventRecruiters();
+     
+     localStorage.removeItem('currentEvent');
+     
+
+   
   }
 
   getEventRecruiters(){
     var recruiterInfo = localStorage.getItem('currentUser');
-    //console.log('recruiterId: ' + recruiterId);
     this.dataService.getRecruiterIdRecords(`recruiter/events/${recruiterInfo}`)
       .subscribe(
-       events => this.events = events,
-       error =>  this.errorMessage = <any>error);
+       events => {
+       this.events = events
+       this.dtTrigger.next()
+       },
+       error =>  this.errorMessage = <any>error
+       );
   }
 
   clickEvent(event){
