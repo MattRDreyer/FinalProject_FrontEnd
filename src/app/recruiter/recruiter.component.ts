@@ -39,14 +39,15 @@ export class RecruiterComponent implements OnInit {
 
   authenticate(recruiter: NgForm) {
     
-        let username = recruiter.value.username;
-        let password = recruiter.value.password;
+    let username = recruiter.value.username;
+    let password = recruiter.value.password;
 
     this.dataService.recruiterLogin(`recruiter/${username}/${password}`)
       .subscribe(
-      recruiter => {
-        localStorage.setItem("currentUser", JSON.stringify(recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
-        this.router.navigate([ 'recruiter/events', recruiter]);
+        recruiter => {
+          localStorage.setItem("currentUser", JSON.stringify(recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
+          console.log("currentUser: " + JSON.stringify(recruiter))
+          this.router.navigate([ 'recruiter/events', recruiter])
       },
       error => this.errorMessage = "Login Invalid.  Please try again");
   }
