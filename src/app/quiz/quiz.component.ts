@@ -29,6 +29,7 @@ export class QuizComponent implements OnInit {
   questions: any;
   quiz: object = {};
   quizForm: NgForm;
+  role: string;
 
   mode = 'Observable';
   student: any;
@@ -43,6 +44,56 @@ export class QuizComponent implements OnInit {
     public dialog: MdDialog
   ) {}
   
+  ngOnInit() { 
+    this.email = localStorage.getItem('email') || null;
+    console.log("In ngOnInit - email is " + this.email);
+ 
+    this.getStudent();
+    // console.log("error: " + this.errorMessage);
+    // console.log("In ngOnInit - studentId is " + this.student["studentId"]);
+
+    // this.getQuiz()
+    // console.log("In ngOnInit - quizId is " + this.student.quizId);
+  }
+
+  getStudent() {
+    // this.route.params
+    //   .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", this.email))
+    this.dataService.getStudentRecordByEmail("student", this.email)
+      .subscribe(
+          student => { 
+            this.student = student
+            this.getQuiz()
+          },
+          error => this.errorMessage = <any>error
+      )
+  }
+
+  getQuiz() {
+    console.log("in getQuiz - studentId is " + this.student.studentId);
+    console.log("in getQuiz - email is " + this.email);
+    // If they are not applying for a Frontend, Backend, or Both then no quiz is needed
+    if (this.student.role == "Neither") {
+      console.log("Role is Neither - No Quiz Needed");
+      this.thankAndExit();
+    }
+    this.dataService.getQuizRecords( "quiz", "student", this.email, this.student.role.toLowerCase() )
+      .subscribe(
+        quiz => {
+          this.quiz = quiz;
+          this.questions = quiz.questions;
+          // this will filter out null records in the returned dataset to check for an error
+          // for(let i =0; i < this.questions.length; i++){
+          //   if(_.isEmpty(this.questions[i])){
+          //     this.questions.splice(i, 1)
+          //   }
+          // }
+          // console.log(this.questions)
+        },
+        error => this.errorMessage = <any>error
+      )
+  }
+
   confirmParticipation() {
     let dialogRef = this.dialog.open(ConfirmComponent, {
       position: {
@@ -69,39 +120,6 @@ export class QuizComponent implements OnInit {
     return unsafe;
   }
 
-  ngOnInit() { 
-    this.email = localStorage.getItem('email') || null;
-    this.getQuiz();
-    this.getStudent();
-  }
-
-  getQuiz() {
-    console.log("in getQuiz - email is " + this.email);
-    this.dataService.getQuizRecords( "quiz", "student", this.email )
-      .subscribe(
-        quiz => {
-          this.quiz = quiz;
-          this.questions = quiz.questions;
-
-          // for(let i =0; i < this.questions.length; i++){
-          //   if(_.isEmpty(this.questions[i])){
-          //     this.questions.splice(i, 1)
-          //   }
-          // }
-          // console.log(this.questions)
-          
-        },
-        error => this.errorMessage = <any>error);
-  }
-
-  getStudent() {
-    this.route.params
-      .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", this.email))
-      .subscribe(
-        student => this.student = student,
-        error =>  this.errorMessage = <any>error);
-  }  
-
   saveQuiz(quizForm: NgForm) {
     console.log("email: " + this.email);
     console.log("studentId: " + this.student.studentId);
@@ -127,11 +145,14 @@ export class QuizComponent implements OnInit {
         error =>  this.errorMessage = <any>error
     );  
 
-    this.confirmParticipation();
+    this.thankAndExit();
+  } // end saveQuiz
 
+  thankAndExit() {
+    this.confirmParticipation();
     localStorage.removeItem('email');
     this.router.navigate( ['/student'] );
-  } // end saveQuiz
+  }
 
   // This is executed by an event on the web page. 
   onSelectionChange(entry, choice) {
