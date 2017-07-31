@@ -3,7 +3,8 @@ import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms';
-import { DataService } from '../data.service'
+import { DataService } from '../data.service';
+// import { MdDatepickerModule } from '@angular/material';
 
 
 @Component({
@@ -128,12 +129,13 @@ export class EventFormComponent implements OnInit {
 
   validationMessages = {
     'eventDate': {
+    'required': 'Event Date is required.',
     'pattern': 'Start date should be in the following format: YYYY-MM-DD'
   },
    'eventName': {
-      'required': 'First name is required.',
-      'minlength': 'First name must be at least 2 characters long.',
-      'maxlength': 'First name cannot be more than 30 characters long.'
+      'required': 'Event Name is required.',
+      'minlength': 'Event Name must be at least 2 characters long.',
+      'maxlength': 'Event Name cannot be more than 60 characters long.'
     }
 
   };

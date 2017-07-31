@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
+// import { MdDatepickerModule } from '@angular/material';
 import { DataService } from './data.service';
 
 import { ConfirmComponent } from './confirm/confirm.component';
@@ -46,7 +47,8 @@ import { AlleventsComponent } from './allevents/allevents.component';
     ProspectComponent,
     StatusMessageComponent,
     DeleteConfirmComponent,
-    AlleventsComponent
+    AlleventsComponent,
+    // MdDatepickerModule
   ],
   imports: [
     BrowserModule,

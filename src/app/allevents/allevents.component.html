@@ -25,7 +25,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let event of events">
-        <td class="text-center">
+        <td> <!--removed this  class="text-center" to align the buttons to left-->
           <a class="btn btn-primary" [routerLink]="['/student']">Activate Event</a>
         </td>
 
@@ -37,7 +37,7 @@
         {{recruiter.firstName}} {{recruiter.lastName}} <br />
         </span>
         </td>
-        <td class="text-center">
+        <td>
           <a class="btn btn-primary" [routerLink]="['/event/edit/', event.eventId]">Edit Event</a>&nbsp;
           <button (click)="deleteEvent(event.eventId)" class="btn btn-danger">Delete Event</button>
         </td>
