@@ -19,6 +19,11 @@ import _ from 'lodash';
 })
 export class QuizComponent implements OnInit {
 
+  //this is needed for form on the page so we can do things like validation
+  quizForm: NgForm;
+  @ViewChild('quizForm')
+  currentForm: NgForm;
+
   errorMessage: string;
   successMessage: string;
 
@@ -28,7 +33,8 @@ export class QuizComponent implements OnInit {
 
   questions: any;
   quiz: object = {};
-  quizForm: NgForm;
+  //quizForm: NgForm;
+  role: string;
 
   mode = 'Observable';
   student: any;
@@ -43,6 +49,50 @@ export class QuizComponent implements OnInit {
     public dialog: MdDialog
   ) {}
   
+  ngOnInit() { 
+    this.email = localStorage.getItem('email') || null;
+    console.log("In ngOnInit - email is " + this.email);
+    this.getStudent();
+  }
+
+  getStudent() {
+    // this.route.params
+    //   .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", this.email))
+    this.dataService.getStudentRecordByEmail("student", this.email)
+      .subscribe(
+          student => { 
+            this.student = student
+            this.getQuiz()
+          },
+          error => this.errorMessage = <any>error
+      )
+  }
+
+  getQuiz() {
+    console.log("in getQuiz - studentId is " + this.student.studentId);
+    console.log("in getQuiz - email is " + this.email);
+    // If they are not applying for a Frontend, Backend, or Both then no quiz is needed
+    if (this.student.role == "Neither") {
+      console.log("Role is Neither - No Quiz Needed");
+      this.thankAndExit();
+    }
+    this.dataService.getQuizRecords( "quiz", "student", this.email, this.student.role.toLowerCase() )
+      .subscribe(
+        quiz => {
+          this.quiz = quiz;
+          this.questions = quiz.questions;
+          // this will filter out null records in the returned dataset to check for an error
+          // for(let i =0; i < this.questions.length; i++){
+          //   if(_.isEmpty(this.questions[i])){
+          //     this.questions.splice(i, 1)
+          //   }
+          // }
+          // console.log(this.questions)
+        },
+        error => this.errorMessage = <any>error
+      )
+  }
+
   confirmParticipation() {
     let dialogRef = this.dialog.open(ConfirmComponent, {
       position: {
@@ -69,39 +119,6 @@ export class QuizComponent implements OnInit {
     return unsafe;
   }
 
-  ngOnInit() { 
-    this.email = localStorage.getItem('email') || null;
-    this.getQuiz();
-    this.getStudent();
-  }
-
-  getQuiz() {
-    console.log("in getQuiz - email is " + this.email);
-    this.dataService.getQuizRecords( "quiz", "student", this.email )
-      .subscribe(
-        quiz => {
-          this.quiz = quiz;
-          this.questions = quiz.questions;
-
-          // for(let i =0; i < this.questions.length; i++){
-          //   if(_.isEmpty(this.questions[i])){
-          //     this.questions.splice(i, 1)
-          //   }
-          // }
-          // console.log(this.questions)
-          
-        },
-        error => this.errorMessage = <any>error);
-  }
-
-  getStudent() {
-    this.route.params
-      .switchMap((params: Params) => this.dataService.getStudentRecordByEmail("student", this.email))
-      .subscribe(
-        student => this.student = student,
-        error =>  this.errorMessage = <any>error);
-  }  
-
   saveQuiz(quizForm: NgForm) {
     console.log("email: " + this.email);
     console.log("studentId: " + this.student.studentId);
@@ -118,7 +135,6 @@ export class QuizComponent implements OnInit {
     });
     
     //console.log(JSON.stringify(quiz));
-
     var str = JSON.stringify(quiz);
     var obj = JSON.parse(str);
     this.dataService.addQuizRecord("quizResults", obj, quizForm.value.quizId, this.student.studentId)
@@ -127,11 +143,14 @@ export class QuizComponent implements OnInit {
         error =>  this.errorMessage = <any>error
     );  
 
-    this.confirmParticipation();
+    this.thankAndExit();
+  } // end saveQuiz
 
+  thankAndExit() {
+    this.confirmParticipation();
     localStorage.removeItem('email');
     this.router.navigate( ['/student'] );
-  } // end saveQuiz
+  }
 
   // This is executed by an event on the web page. 
   onSelectionChange(entry, choice) {
@@ -149,5 +168,63 @@ export class QuizComponent implements OnInit {
     //console.log("question " + this.selectedEntry.questionId + " does not exist in array - pushing");
     this.entries.push(this.selectedEntry);
   } // end onSelectionChange
+
+
+  //everything below here is form validation boiler plate
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    this.quizForm = this.currentForm;
+    this.quizForm.valueChanges
+      .subscribe(
+        data => this.onValueChanged()
+      );
+  }
+
+  onValueChanged() {
+    let form = this.quizForm.form;
+
+    for (let field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  //fields that need to be validated
+  formErrors = {
+    'choiceA': '',
+    'choiceB': '',
+    'choiceC': '',
+    'choiceD': '',
+    'choiceE': ''
+  };
+
+  validationMessages = {
+    'choiceA': {
+      'required': 'Answer is required'
+    },
+    'choiceB': {
+      'required': 'Answer is required'
+    },
+    'choiceC': {
+      'required': 'Answer is required'
+    },
+    'choiceD': {
+      'required': 'Answer is required'
+    },
+    'choiceE': {
+      'required': 'Answer is required'
+    },
+  };
 
 }  // end QuizComponent
