@@ -19,6 +19,11 @@ import _ from 'lodash';
 })
 export class QuizComponent implements OnInit {
 
+  //this is needed for form on the page so we can do things like validation
+  quizForm: NgForm;
+  @ViewChild('quizForm')
+  currentForm: NgForm;
+
   errorMessage: string;
   successMessage: string;
 
@@ -28,7 +33,7 @@ export class QuizComponent implements OnInit {
 
   questions: any;
   quiz: object = {};
-  quizForm: NgForm;
+  //quizForm: NgForm;
   role: string;
 
   mode = 'Observable';
@@ -47,13 +52,7 @@ export class QuizComponent implements OnInit {
   ngOnInit() { 
     this.email = localStorage.getItem('email') || null;
     console.log("In ngOnInit - email is " + this.email);
- 
     this.getStudent();
-    // console.log("error: " + this.errorMessage);
-    // console.log("In ngOnInit - studentId is " + this.student["studentId"]);
-
-    // this.getQuiz()
-    // console.log("In ngOnInit - quizId is " + this.student.quizId);
   }
 
   getStudent() {
@@ -136,7 +135,6 @@ export class QuizComponent implements OnInit {
     });
     
     //console.log(JSON.stringify(quiz));
-
     var str = JSON.stringify(quiz);
     var obj = JSON.parse(str);
     this.dataService.addQuizRecord("quizResults", obj, quizForm.value.quizId, this.student.studentId)
@@ -170,5 +168,63 @@ export class QuizComponent implements OnInit {
     //console.log("question " + this.selectedEntry.questionId + " does not exist in array - pushing");
     this.entries.push(this.selectedEntry);
   } // end onSelectionChange
+
+
+  //everything below here is form validation boiler plate
+  ngAfterViewChecked() {
+    this.formChanged();
+  }
+
+  formChanged() {
+    this.quizForm = this.currentForm;
+    this.quizForm.valueChanges
+      .subscribe(
+        data => this.onValueChanged()
+      );
+  }
+
+  onValueChanged() {
+    let form = this.quizForm.form;
+
+    for (let field in this.formErrors) {
+      // clear previous error message (if any)
+      this.formErrors[field] = '';
+      const control = form.get(field);
+
+      if (control && control.dirty && !control.valid) {
+        const messages = this.validationMessages[field];
+        for (const key in control.errors) {
+          this.formErrors[field] += messages[key] + ' ';
+        }
+      }
+    }
+  }
+
+  //fields that need to be validated
+  formErrors = {
+    'choiceA': '',
+    'choiceB': '',
+    'choiceC': '',
+    'choiceD': '',
+    'choiceE': ''
+  };
+
+  validationMessages = {
+    'choiceA': {
+      'required': 'Answer is required'
+    },
+    'choiceB': {
+      'required': 'Answer is required'
+    },
+    'choiceC': {
+      'required': 'Answer is required'
+    },
+    'choiceD': {
+      'required': 'Answer is required'
+    },
+    'choiceE': {
+      'required': 'Answer is required'
+    },
+  };
 
 }  // end QuizComponent

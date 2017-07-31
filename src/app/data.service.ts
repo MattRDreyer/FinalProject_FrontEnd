@@ -79,18 +79,16 @@ export class DataService {
     // When trying to get a quiz by role use the following endpoint:
     // /quiz/student/{studentEmail}/{role}
     // role is either "frontend" or "backend"
-    // if the user picks both use this endpoint:
-    // /quiz/student/{studentEmail}
-    // These are gets
+    //  http://localhost:8080/quiz/student/deford@ameritech.net/
+    // if the user picks "both" use this endpoint:
+    //  /quiz/student/{studentEmail}
     getQuizRecords(endpoint: string, option: string, email:string, role:string): Observable<any> {
         if (role == "frontend" || role == "backend") {
             this.quizUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"+role
         } else {
            this.quizUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"
         }
-
         console.log("getQuizRecords: " + this.quizUrl);
-
         return this.http.get(this.quizUrl)
             .map(this.extractData)
             .catch(this.handleError);

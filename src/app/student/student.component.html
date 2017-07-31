@@ -1,19 +1,38 @@
   <section @fadeInAnimation>
     <ol class="breadcrumb">
-      <li><a routerLink="/home">Home</a></li>
+      <!-- <li><a routerLink="/home">Home</a></li> -->
       <li class="active">Student Login</li>
   </ol>
 
   <br/>
 
-    <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
-        {{errorMessage}} {{successMessage}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div> 
+  <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
+      {{errorMessage}} {{successMessage}}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div> 
+      
 
-  <!-- Note: ngSubmit will not be executed because routerLink is re-routing us to studentForm -->
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h4>Welcome! Thank You for Participating in the Liberty Mutual Job Fair!</h4>
+    </div>
+    <div class="panel-body">
+      <p>Please enter your email address and click submit.</p>
+      <p>Once logged in, enter your registration information and select a candidate role: </p>
+      <ul>
+        <li>Frontend</li>
+        <li>Backend</li>
+        <li>Both</li>
+        <li>Neither</li>
+      </ul>
+      <p>Some candidates will be given a short quiz that is used to evaluate candidate skill level.</p>
+    </div>
+  </div>
+  
+  
+    <!-- Note: ngSubmit will not be executed because routerLink is re-routing us to studentForm -->
   <form novalidate (ngSubmit)="authenticate(studentForm)"  #studentForm="ngForm" class="form-horizontal">
     <div class="form-group">
       <label for="email" class="col-sm-2 control-label">Email</label>
