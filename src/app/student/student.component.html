@@ -3,8 +3,18 @@
       <!-- <li><a routerLink="/home">Home</a></li> -->
       <li class="active">Student Login</li>
   </ol>
-
   <br/>
+
+  <!-- <form novalidate (ngSubmit)="deactivateAndExit" #deactivateForm="ngForm" class="form-horizontal">
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">Deactivate</button>
+      </div>
+    </div>
+  </form> -->
+  <button (click)="deactivateAndExit()" class="btn btn-primary">Deactivate</button>
+
+  <br /><br />
 
   <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
       {{errorMessage}} {{successMessage}}

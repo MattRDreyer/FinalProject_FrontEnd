@@ -7,6 +7,9 @@ import { NgForm } from '@angular/forms';
 import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
 
+import { MdDialog, MdDialogConfig } from '@angular/material';
+import { DeactivateComponent } from '../deactivate/deactivate.component';
+
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
@@ -32,10 +35,33 @@ export class StudentComponent implements OnInit {
     private dataService: DataService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router
+    private router: Router,
+    public dialog: MdDialog
   ) {}
 
   ngOnInit() {}
+
+  deactivateAndExit() {
+    console.log("inside deactivateAndExit");
+    this.deactivateRecruiter();
+  }
+
+  deactivateRecruiter() {
+    console.log("inside deactivateRecruiter");
+    let dialogRef = this.dialog.open(DeactivateComponent, {
+      // position: {
+      // top: '',
+      // bottom: '200px',
+      // left: '',
+      // right: ''
+      // },
+      // height: '350px',
+      // width: '50%',
+    });
+    dialogRef.afterClosed().subscribe(result => { });
+    
+  }
+  
 
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {
