@@ -32,16 +32,19 @@ export class RegisterComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.removeItem('currentUser');
+  }
 
 saveRecruiter(recruiter: NgForm){
     console.log("recruiterId = " + recruiter.value.recruiterId)
     this.dataService.addRecruiterRecord("recruiter", recruiter.value)
         .subscribe(
-          recruiter => this.successMessage = "Record added successfully.  Please login to begin your session.",
+          recruiter => {
+          this.router.navigate([ 'recruiter'])
+          },
           error =>  this.errorMessage = <any>error);
-          this.register = {};
-          console.log(this.register)
+          
             
     }
  
@@ -85,7 +88,8 @@ saveRecruiter(recruiter: NgForm){
       'required': 'Password is required'
     },
     'email': {
-      'required': 'Email is required'
+      'required': 'Email is required',
+      'pattern': 'Valid email must be entered'
     },
     'firstName': {
       'required': 'First Name is required'
