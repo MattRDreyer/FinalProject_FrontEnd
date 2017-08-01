@@ -12,6 +12,8 @@ export class DataService {
     private baseUrl = 'http://localhost:8080/'
     quizUrl: string;
 
+    quizUrl: string;
+
     constructor (private http: Http) {}
 
     // baseurl                  endpoint  destination
@@ -37,7 +39,7 @@ export class DataService {
     // executed from the login screen
     getStudentRecordByEmail(endpoint: string, email:string): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${email}/`;
-        console.log(apiUrl);
+        console.log("In getStudentRecordByEmail " + apiUrl);
         return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -46,6 +48,7 @@ export class DataService {
     // executed for edit
     getStudentRecordById(endpoint: string, id:number): Observable<object> {
     let apiUrl = `${this.baseUrl}${endpoint}/${id}`;
+    console.log("In getStudentRecordById " + apiUrl);
     return this.http.get(apiUrl)
         .map(this.extractData)
         .catch(this.handleError);
@@ -56,7 +59,6 @@ export class DataService {
     editStudentRecord(endpoint: string, record:object, id:number, event:string): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/${id}/${event}`;
         console.log("Updating in editStudentRecord: " + apiUrl)
-        console.log("Update Payload: " + record)
         return this.http.put(apiUrl, record)
             .map(this.extractData)
             .catch(this.handleError);
@@ -66,7 +68,7 @@ export class DataService {
     // POST: ...student/add/eventId
     addStudentRecord(endpoint: string, record:object, event:string): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/add/${event}`;
-        console.log(apiUrl)
+        console.log("Adding in addStudentRecord: " + apiUrl)
         return this.http.post(apiUrl, record)
             .map(this.extractData)
             .catch(this.handleError);
@@ -74,7 +76,14 @@ export class DataService {
 
     // performed from quiz.component.ts to obtain quiz questions
     // http://localhost:8080/quiz/student/{email}
-   getQuizRecords(endpoint: string, option: string, email:string, role:string): Observable<any> {
+
+    // When trying to get a quiz by role use the following endpoint:
+    // /quiz/student/{studentEmail}/{role}
+    // role is either "frontend" or "backend"
+    //  http://localhost:8080/quiz/student/deford@ameritech.net/
+    // if the user picks "both" use this endpoint:
+    //  /quiz/student/{studentEmail}
+    getQuizRecords(endpoint: string, option: string, email:string, role:string): Observable<any> {
         if (role == "frontend" || role == "backend") {
             this.quizUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"+role
         } else {

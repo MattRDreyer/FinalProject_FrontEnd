@@ -1,6 +1,6 @@
 <section @fadeInAnimation>
   <ol class="breadcrumb">
-      <li><a routerLink="/home">Home</a></li>
+      <!-- <li><a routerLink="/home">Home</a></li> -->
       <li><a routerLink="/student">Student Registration</a></li>
       <li class="active">Student Registration</li>
   </ol>
@@ -16,28 +16,13 @@
     </button>
 </div>
 
-<!-- BEGIN FORM
-
-  private int studentId;
-	private String firstName;
-	private String lastName;
-	private String university;
-	private String major;
-	private Float gpa;
-	private String email;
-	private String phoneNumber;
-	private String graduationMonth;
-	private String graduationYear;
-
--->
-
 <form novalidate (ngSubmit)="saveStudent(studentForm)"  #studentForm="ngForm" class="form-horizontal">
   <input [ngModel]="student?.studentId" ngModel #studentId="ngModel" type="hidden" name="studentId">
 
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-4">
-      <input [ngModel]="student?.email" ngModel #email="ngModel" type="text" class="form-control" id="email" name="email" placeholder="Email" required minlength="2" maxlength="50" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$">
+      <input autocomplete="off" [ngModel]="student?.email" ngModel #email="ngModel" type="text" class="form-control" id="email" name="email" placeholder="Email" required minlength="2" maxlength="50" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$">
          <span *ngIf="formErrors.email" class="text-danger">
           {{ formErrors.email }}
       </span>
@@ -125,7 +110,7 @@
   </div>
 
   <div class="form-group">
-    <label for="graduationMonth" class="col-sm-2 control-label">Graduation MM</label>
+    <label for="graduationMonth" class="col-sm-2 control-label">Graduation Month</label>
     <div class="col-sm-4">
       <select [ngModel]="student?.graduationMonth" ngModel #graduationMonth="ngModel" class="form-control" name="graduationMonth" id="graduationMonth" required>
         <option value="January">January</option>
@@ -145,7 +130,7 @@
   </div>
 
   <div class="form-group">
-    <label for="graduationYear" class="col-sm-2 control-label">Graduation YYYY</label>
+    <label for="graduationYear" class="col-sm-2 control-label">Graduation Year</label>
     <div class="col-sm-4">
       <select [ngModel]="student?.graduationYear" ngModel #graduationYear="ngModel" class="form-control" name="graduationYear" id="graduationYear" required>
         <option value="2022">2022</option>        
