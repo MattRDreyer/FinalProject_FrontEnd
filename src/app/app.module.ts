@@ -36,6 +36,8 @@ import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.componen
 import { DataTablesModule } from 'angular-datatables';
 import { AlleventsComponent } from './allevents/allevents.component';
 
+import { DeactivateComponent } from './deactivate/deactivate.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +56,7 @@ import { AlleventsComponent } from './allevents/allevents.component';
     StatusMessageComponent,
     DeleteConfirmComponent,
     AlleventsComponent,
-    
+    DeactivateComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,7 @@ import { AlleventsComponent } from './allevents/allevents.component';
     MdListModule 
     
   ],
-  entryComponents: [ConfirmComponent, DeleteConfirmComponent],
+  entryComponents: [ConfirmComponent, DeleteConfirmComponent, DeactivateComponent],
   providers: [DataService],
   bootstrap: [AppComponent]
 })

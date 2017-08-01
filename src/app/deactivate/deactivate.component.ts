@@ -1,4 +1,3 @@
-
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -6,30 +5,30 @@ import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
-
 import { MdDialog, MdDialogConfig } from '@angular/material';
-import { DeactivateComponent } from '../deactivate/deactivate.component';
 
 @Component({
-  selector: 'app-student',
-  templateUrl: './student.component.html',
-  styleUrls: ['./student.component.css'],
+  selector: 'app-deactivate',
+  templateUrl: './deactivate.component.html',
+  styleUrls: ['./deactivate.component.css'],
   animations: [fadeInAnimation]
 })
-export class StudentComponent implements OnInit {
+export class DeactivateComponent implements OnInit {
 
   //this is needed for form on the page so we can do things like validation
   //we can discuss this in detail when needed
-  studentForm: NgForm;
-  @ViewChild('studentForm')
+  recruiterForm: NgForm;
+  @ViewChild('recruiterForm')
   currentForm: NgForm;
 
   //handle status messages
   successMessage: string;
   errorMessage: string;
 
-  email: string;
-  student: object; 
+  username: string;
+  password: string;
+
+  recruiter: object; 
 
   constructor(
     private dataService: DataService,
@@ -41,36 +40,43 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {}
 
-  deactivateAndExit() {
-    this.deactivateRecruiter();
+  authenticate(recruiter: NgForm) {
+    
+    let username = recruiter.value.username;
+    let password = recruiter.value.password;
+
+    this.dataService.recruiterLogin(`recruiter/${username}/${password}`)
+      .subscribe(
+        recruiter => {
+          localStorage.setItem("currentUser", JSON.stringify(recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
+          console.log("currentUser: " + JSON.stringify(recruiter))
+          this.router.navigate([ 'recruiter/events', recruiter])
+          this.dialog.closeAll()
+      },
+      error => this.errorMessage = "Login Invalid.  Please try again");
   }
 
-  deactivateRecruiter() {
-    let dialogRef = this.dialog.open(DeactivateComponent);
+  closeDialog() {
+    this.dialog.closeAll();
   }
-  
 
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {
     this.formChanged();
   }
-
   formChanged() {
-    this.studentForm = this.currentForm;
-    this.studentForm.valueChanges
+    this.recruiterForm = this.currentForm;
+    this.recruiterForm.valueChanges
       .subscribe(
         data => this.onValueChanged()
       );
   }
-
   onValueChanged() {
-    let form = this.studentForm.form;
-
+    let form = this.recruiterForm.form;
     for (let field in this.formErrors) {
       // clear previous error message (if any)
       this.formErrors[field] = '';
       const control = form.get(field);
-
       if (control && control.dirty && !control.valid) {
         const messages = this.validationMessages[field];
         for (const key in control.errors) {
@@ -79,15 +85,17 @@ export class StudentComponent implements OnInit {
       }
     }
   }
-
   formErrors = {
-    'email': '',
+    'username': '',
+    'password': '',
+  };
+  validationMessages = {
+    'username': {
+      'required': 'User Name is required'
+    },
+    'password': {
+      'required': 'Password is required'
+    }
   };
 
-  validationMessages = {
-    'email': {
-      'required': 'Email is required',
-      'pattern': 'Invalid Email Format'
-    },
-  };
-}
+} // end DeactivateComponent
