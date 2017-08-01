@@ -14,7 +14,7 @@
     </button>
 </div> 
 
-<br><br><br><br>
+<br><br>
 
 <h1>Recruiter Registration</h1>
 
@@ -35,7 +35,7 @@
         <div class="form-group">
       <label for="password" class="col-sm-2 control-label">Password</label>
       <div class="col-sm-4">
-        <input [(ngModel)]="password" type="text" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
+        <input [(ngModel)]="password" type="password" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
           <span *ngIf="formErrors.password" class="text-danger">
             {{ formErrors.password }}
         </span>
@@ -45,7 +45,7 @@
         <div class="form-group">
       <label for="email" class="col-sm-2 control-label">Email</label>
       <div class="col-sm-4">
-        <input [(ngModel)]="email" type="text" class="form-control" id="email" name="email" placeholder="Enter Email..." required>
+        <input [(ngModel)]="email" type="text" class="form-control" id="email" name="email" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$" placeholder="Enter Email..." required>
           <span *ngIf="formErrors.email" class="text-danger">
             {{ formErrors.email }}
         </span>

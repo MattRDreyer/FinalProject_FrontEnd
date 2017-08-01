@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 export class DataService {
 
     private baseUrl = 'http://localhost:8080/'
+    quizUrl: string;
 
     constructor (private http: Http) {}
 
@@ -73,15 +74,19 @@ export class DataService {
 
     // performed from quiz.component.ts to obtain quiz questions
     // http://localhost:8080/quiz/student/{email}
-    getQuizRecords(endpoint: string, option: string, email:string): Observable<any> {
-        let apiUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"
-        console.log("getQuizRecords: " + apiUrl);
-        return this.http.get(apiUrl)
+   getQuizRecords(endpoint: string, option: string, email:string, role:string): Observable<any> {
+        if (role == "frontend" || role == "backend") {
+            this.quizUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"+role
+        } else {
+           this.quizUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"
+        }
+        console.log("getQuizRecords: " + this.quizUrl);
+        return this.http.get(this.quizUrl)
             .map(this.extractData)
             .catch(this.handleError);
     }
     
-    // http://localhost:8080/quizResults/add/{quizId}/{studentId}/
+   // http://localhost:8080/quizResults/add/{quizId}/{studentId}/
     // http://localhost:8080/quizResults/add/387/10/
     addQuizRecord(endpoint: string, record:object, quizId:number, studentId:number): Observable<object> {
         let apiUrl = `${this.baseUrl}${endpoint}/add/${quizId}/${studentId}/`;

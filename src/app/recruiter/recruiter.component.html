@@ -14,7 +14,7 @@
     </button>
 </div> 
 
-<br><br><br><br>
+<br>
 
 <h1>Recruiter Login</h1>
 
@@ -26,7 +26,7 @@
     <div class="form-group">
       <label for="username" class="col-sm-2 control-label">User Name</label>
       <div class="col-sm-4">
-        <input ngModel #username="ngModel" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
+        <input autocomplete="off" ngModel #username="ngModel" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
           <span *ngIf="formErrors.username" class="text-danger">
             {{ formErrors.username }}
         </span>
@@ -42,7 +42,7 @@
     <div class="form-group">
       <label for="password" class="col-sm-2 control-label">Password</label>
       <div class="col-sm-4">
-        <input ngModel #password="ngModel" type="text" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
+        <input autocomplete="off" ngModel #password="ngModel" type="text" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
           <span *ngIf="formErrors.password" class="text-danger">
             {{ formErrors.password }}
         </span>
@@ -68,9 +68,9 @@
 
     <!--<a class="btn btn-primary" [routerLink]="[ '/recruiter/username/', username ]">Login</a>-->
 
-    <br><br><br><br><br><br><br><br>
+    <br>
 
-    <a class="btn btn-default" [routerLink]="[ '/register/add/']">Register New Recruiter</a>
+    <a class="btn btn-warning" [routerLink]="[ '/register/add/']">Register New Recruiter</a>
     
 
 

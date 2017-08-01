@@ -19,6 +19,7 @@
         <th>Activate Event</th>
         <th>Event Date</th>
         <th>Event Name</th>
+        <th>No of Students</th>
         <th>Recruiter</th>
         <th>Actions</th>
       </tr>
@@ -33,6 +34,7 @@
         <td> <a href="/event/students/{{event.eventId}}">
         {{event.eventName}}
         </a></td>
+      <td>{{event.numStudents}}</td>
         <td><span *ngFor="let recruiter of event.recruiters">
         {{recruiter.firstName}} {{recruiter.lastName}} <br />
         </span>

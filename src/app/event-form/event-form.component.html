@@ -1,60 +1,60 @@
-<section >
-<ol class="breadcrumb">
+<section>
+  <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
     <li><a routerLink="/event">Events</a></li>
     <li class="active">Manage Event</li>
-</ol>
+  </ol>
 
-<br/>
+  <br/>
 
-<a class="btn btn-primary" routerLink="/event">Return to Events</a>
+  <a class="btn btn-primary" routerLink="/event">Return to Events</a>
 
-<h1>Manage Event</h1>
+  <h1>Manage Event</h1>
 
-<br/> <br/>
+  <br/> <br/>
 
-<app-status-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-status-message>
-
-<form (ngSubmit)="saveEvent(event.eventId)"  #eventForm="ngForm" class="form-horizontal">
-  <input [ngModel]="event?.eventId" ngModel #eventId="ngModel" type="hidden" name="eventId" id="eventForm">
-  <div class="form-group">
-    <label for="eventDate" class="col-sm-2 control-label">Event Date</label>
-    <div class="col-sm-10">
-       <input [(ngModel)]="event.eventDate" #eventDate="ngModel" type="text" class="form-control" id="eventDate" name="eventDate" placeholder="2017-01-01" pattern="(\d{4})-(\d{2})-(\d{2})" required>
-      <span *ngIf="formErrors.eventDate" class="text-danger">
+  <app-status-message [successMessage]="successMessage" [errorMessage]="errorMessage"></app-status-message>
+  <form (ngSubmit)="saveEvent(event.eventId)" #eventForm="ngForm" class="form-horizontal">
+    <input [ngModel]="event?.eventId" ngModel #eventId="ngModel" type="hidden" name="eventId" id="eventForm">
+    <div class="form-group">
+      <label for="eventDate" class="col-sm-2 control-label">Event Date</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="event.eventDate" #eventDate="ngModel" type="text" class="form-control" id="eventDate" name="eventDate"
+          placeholder="2017-01-01" pattern="(\d{4})-(\d{2})-(\d{2})" required>
+        <!-- <input mdInput [mdDatepicker]="myDatepicker" required>
+          <button mdSuffix [mdDatepickerToggle]="myDatepicker"></button>
+          <md-datepicker #myDatepicker></md-datepicker> -->
+        <span *ngIf="formErrors.eventDate" class="text-danger">
           {{ formErrors.eventDate }}
-      </span> 
-        <!-- <md-input-container>
-  <input mdInput [mdDatepicker]="picker" placeholder="select a date">
-  <button mdSuffix [mdDatepickerToggle]="picker"></button>
-</md-input-container>
-<md-datepicker #picker></md-datepicker> -->
+      </span>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="eventName" class="col-sm-2 control-label">Event Name</label>
-    <div class="col-sm-10">
-      <input [(ngModel)]="event.eventName" #eventName="ngModel" type="text" class="form-control" id="eventName" name="eventName"  placeholder="event name" required minlength="2" maxlength="30">
-       <span *ngIf="formErrors.eventName" class="text-danger">
+    <div class="form-group">
+      <label for="eventName" class="col-sm-2 control-label">Event Name</label>
+      <div class="col-sm-10">
+        <input [(ngModel)]="event.eventName" #eventName="ngModel" type="text" class="form-control" id="eventName" name="eventName"
+          placeholder="event name" required minlength="2" maxlength="30">
+        <span *ngIf="formErrors.eventName" class="text-danger">
           {{ formErrors.eventName }}
       </span>
+      </div>
     </div>
-  </div>
-     <div class="form-group">
-    <label for="recruiterId" class="col-sm-2 control-label">Recruiter</label>
-    <div class="col-sm-10">
-       <select multiple [ngModel]="currentRecruiters" ngModel #recruiters="ngModel" class="form-control" name="recruiters" id="recruiterId" required>
+    <div class="form-group">
+      <label for="recruiterId" class="col-sm-2 control-label">Recruiter</label>
+      <div class="col-sm-10">
+        <select data-live-search="true" selectpicker multiple [ngModel]="currentRecruiters" ngModel #recruiters="ngModel" class="form-control"
+          name="recruiters" id="recruiterId" required> 
           <option *ngFor="let recruiter of currentRecruiters" [value]="recruiter">{{recruiter.firstName}} {{recruiter.lastName}}</option>
         </select>
-     <span *ngIf="formErrors.recruiterId" class="text-danger">
+        <span *ngIf="formErrors.recruiterId" class="text-danger">
           {{ formErrors.recruiterId }}
-    </span>
+        </span>
+      </div>
     </div>
-  </div>
-   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button [disabled]="!eventForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button [disabled]="!eventForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 </section>

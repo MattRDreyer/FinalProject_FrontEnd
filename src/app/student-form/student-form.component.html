@@ -177,6 +177,18 @@
   </div>
 
   <div class="form-group">
+    <label for="role" class="col-sm-2 control-label">Development Interest</label>
+    <div class="col-sm-4">
+      <select [ngModel]="student?.role" ngModel #role="ngModel" class="form-control" name="role" id="role" required>
+        <option value="Backend">Backend</option>
+        <option value="Frontend">Frontend</option>
+        <option value="Both">Both</option>
+        <option value="Neither">Neither</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button [disabled]="!studentForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
     </div>

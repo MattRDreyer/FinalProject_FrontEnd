@@ -5,11 +5,17 @@ import { RouterModule }   from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+ 
+ 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './routing/routing.module';
 import { HomeComponent } from './home/home.component';
-// import { MdDatepickerModule } from '@angular/material';
+import { MdDatepickerModule, MdInputModule,
+ MdNativeDateModule, MdTabsModule,
+ MdIconModule, MdMenuModule, MdListModule } from '@angular/material';
+ 
 import { DataService } from './data.service';
 
 import { ConfirmComponent } from './confirm/confirm.component';
@@ -48,7 +54,7 @@ import { AlleventsComponent } from './allevents/allevents.component';
     StatusMessageComponent,
     DeleteConfirmComponent,
     AlleventsComponent,
-    // MdDatepickerModule
+    
   ],
   imports: [
     BrowserModule,
@@ -57,7 +63,16 @@ import { AlleventsComponent } from './allevents/allevents.component';
     MaterialModule,
     BrowserAnimationsModule,
     FormsModule,
-    DataTablesModule
+    DataTablesModule,
+    AngularMultiSelectModule,
+    MdDatepickerModule,
+    MdInputModule,
+    MdIconModule,
+    MdNativeDateModule,
+    MdTabsModule,
+    MdMenuModule, 
+    MdListModule 
+    
   ],
   entryComponents: [ConfirmComponent, DeleteConfirmComponent],
   providers: [DataService],

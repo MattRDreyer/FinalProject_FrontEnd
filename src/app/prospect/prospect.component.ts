@@ -1,10 +1,14 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, ViewChild }      from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, Input, ViewChild }      from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
+import { MdDialog, MdDialogRef } from '@angular/material';
+
+import { Subject } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-prospect',
@@ -21,6 +25,9 @@ export class ProspectComponent implements OnInit {
   @ViewChild('prospectForm')
   currentForm: NgForm;
 
+  dtOptions: any = {};
+  dtTrigger: Subject<any> = new Subject();
+
   //handle status messages
   //scenarios: failed to get/save/edit record
   successMessage: string;
@@ -29,6 +36,8 @@ export class ProspectComponent implements OnInit {
   //what we actually got from the service when finding by email
   prospect: object;
   students: object;
+  quizes: any[];
+
 
   constructor(
     private dataService: DataService,
@@ -36,7 +45,32 @@ export class ProspectComponent implements OnInit {
     private location: Location
   ) {}
 
-  ngOnInit() { 
+
+//   ngOnInit(): void {
+//    this.dtOptions = {
+//      paging: true,
+//      searching: true,
+//      dom: 'Bfrtlip',
+//      buttons: [
+//        'copy',
+//        'print',
+//        'excel'
+//      ]
+//    }
+//    this.getEventRecruiters();
+//  }
+
+  ngOnInit(): void { 
+    this.dtOptions = {
+     paging: true,
+     searching: true,
+     dom: 'Bfrtlip',
+     buttons: [
+       'copy',
+       'print',
+       'excel'
+     ]
+    }
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -61,6 +95,7 @@ export class ProspectComponent implements OnInit {
       .subscribe(
         students =>{
           this.students = students.students
+          this.dtTrigger.next()
         },
         error => console.log("students cannot be accessed")
       );
