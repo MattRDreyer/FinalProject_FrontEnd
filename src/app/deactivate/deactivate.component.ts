@@ -56,6 +56,10 @@ export class DeactivateComponent implements OnInit {
       error => this.errorMessage = "Login Invalid.  Please try again");
   }
 
+  closeDialog() {
+    this.dialog.closeAll();
+  }
+
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {
     this.formChanged();

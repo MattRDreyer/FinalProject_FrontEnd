@@ -1,47 +1,39 @@
 <!-- This will force the recruiter to enter their login and password to deactivate
      the candidate evaluation process -->
 
-  <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage ||   successMessage" id="deletemsg">
-      {{errorMessage}} {{successMessage}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-  </div> 
-
-
-  <h3 md-dialog-title class="primary-color">Authenicate Recruiter Deactivation</h3>
     <md-dialog-content>
-      <p>Please enter your recruiter name and password and press 'Submit' to deactivate this session</p>
-      <br><br>
-
+      <h3 md-dialog-title class="text-center primary-color">Authenicate Recruiter Deactivation</h3>
+        <p align="center">Please enter your recruiter name and password and press 'Submit' to deactivate this session</p>
+      <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deactivateMsg">
+        {{errorMessage}} {{successMessage}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div> 
       <form novalidate (ngSubmit)="authenticate(recruiterForm)" #recruiterForm="ngForm" class="form-horizontal">
-          <div class="form-group">
-            <label for="username" class="col-sm-2 control-label">User Name</label>
-            <div class="col-sm-4">
-              <input autocomplete="off" ngModel #username="ngModel" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
-                <span *ngIf="formErrors.username" class="text-danger">
-                  {{ formErrors.username }}
-              </span>
-            </div>
+        <div class="form-group">
+          <label for="username" class="col-sm-2 control-label">User Name</label>
+          <div class="col-sm-4">
+            <input autocomplete="off" ngModel #username="ngModel" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
+              <span *ngIf="formErrors.username" class="text-danger">
+                {{ formErrors.username }}
+            </span>
           </div>
-          <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">Password</label>
-            <div class="col-sm-4">
-              <input autocomplete="off" ngModel #password="ngModel" type="text" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
-                <span *ngIf="formErrors.password" class="text-danger">
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">Password</label>
+          <div class="col-sm-4">
+            <input autocomplete="off" ngModel #password="ngModel" type="text" class="form-control" id="password" name="password" placeholder="Enter Password..." required>
+              <span *ngIf="formErrors.password" class="text-danger">
                   {{ formErrors.password }}
-              </span>
-            </div>
+             </span>
           </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button [disabled]="!recruiterForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
-            </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button [disabled]="!recruiterForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
+            <button (click)="closeDialog()" class="btn btn-default">Close</button>
           </div>
-        </form>
-      </md-dialog-content>
-
-
-  
-
-
+        </div>
+      </form>
+    </md-dialog-content>

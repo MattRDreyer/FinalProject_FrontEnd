@@ -42,24 +42,11 @@ export class StudentComponent implements OnInit {
   ngOnInit() {}
 
   deactivateAndExit() {
-    console.log("inside deactivateAndExit");
     this.deactivateRecruiter();
   }
 
   deactivateRecruiter() {
-    console.log("inside deactivateRecruiter");
-    let dialogRef = this.dialog.open(DeactivateComponent, {
-      // position: {
-      // top: '',
-      // bottom: '200px',
-      // left: '',
-      // right: ''
-      // },
-      // height: '350px',
-      // width: '50%',
-    });
-    dialogRef.afterClosed().subscribe(result => { });
-    
+    let dialogRef = this.dialog.open(DeactivateComponent);
   }
   
 

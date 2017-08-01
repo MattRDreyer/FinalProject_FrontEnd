@@ -1,15 +1,4 @@
-
-
-/* body{
-background-image: repeating-linear-gradient(
-    45deg, orange 1px, 	#F0F8FF 0.5px, transparent 30px
-);
-} */
-
-
-
-
-/* Customize container */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 @media (min-width: 600px) {
     .container {
@@ -36,4 +25,8 @@ background-image: repeating-linear-gradient(
 
 #deletemsg {
     margin-top: 75px;
+}
+
+#deactivateMsg {
+    margin-top: 30px;
 }
