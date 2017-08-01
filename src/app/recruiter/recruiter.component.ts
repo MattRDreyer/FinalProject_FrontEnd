@@ -33,7 +33,9 @@ export class RecruiterComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.successMessage = "Welcome. Please login to begin your session."
+  }
 
   authenticate(recruiter: NgForm) {
     
