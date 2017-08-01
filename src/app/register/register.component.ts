@@ -5,6 +5,7 @@ import { Location }               from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
+// import { CustomFormsModule } from 'ng2-validation'; 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -20,10 +21,12 @@ export class RegisterComponent implements OnInit {
   //handle status messages
   successMessage: string;
   errorMessage: string;
-
   username: string;
+  firstName: string;
   password: string;
-
+  confirmPassword: string;
+  rightMessage: string = "";
+  wrongMessage: string ="";
   register: object; 
   constructor(
     private dataService: DataService,
@@ -31,19 +34,20 @@ export class RegisterComponent implements OnInit {
     private location: Location,
     private router: Router
   ) {}
-
   ngOnInit() {
     localStorage.removeItem('currentUser');
   }
-
 saveRecruiter(recruiter: NgForm){
     console.log("recruiterId = " + recruiter.value.recruiterId)
     this.dataService.addRecruiterRecord("recruiter", recruiter.value)
         .subscribe(
           recruiter => {
-          this.router.navigate([ 'recruiter'])
+          this.successMessage = "Registration successful.  Please login on the next page"
+          return new Promise((resolve) => 
+          setTimeout(() => resolve(this.router.navigate([ 'recruiter'])), 3000))
+          
           },
-          error =>  this.errorMessage = <any>error);
+          error => this.errorMessage = "Username or email already in use.  Please try again");
           
             
     }
@@ -82,20 +86,29 @@ saveRecruiter(recruiter: NgForm){
   };
   validationMessages = {
     'username': {
-      'required': 'User Name is required'
+      'required': 'User Name is required',
+      'minLength': 'User Name must be at least 2 characters',
+      'maxLength': 'User Name cannot be more than 20 characters'
     },
     'password': {
-      'required': 'Password is required'
+      'required': 'Password is required',
+      'minLength': 'Password must be at least 2 characters',
+      'maxLength': 'Password cannot be more than 20 characters'
     },
     'email': {
       'required': 'Email is required',
-      'pattern': 'Valid email must be entered'
+      'pattern': 'Valid email must be entered',
+      'maxLength': 'Email cannot be more than 50 characters'
     },
     'firstName': {
-      'required': 'First Name is required'
+      'required': 'First Name is required',
+      'minLength': 'First Name must be at least 2 characters',
+      'maxLength': 'First Name cannot be more than 20 characters'
     },
     'lastName': {
-      'required': 'Last Name is required'
+      'required': 'Last Name is required',
+      'minLength': 'Last Name must be at least 2 characters',
+      'maxLength': 'Last Name cannot be more than 20 characters'
     },
   };
 }

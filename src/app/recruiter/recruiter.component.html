@@ -2,7 +2,7 @@
   <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
     <li class="active">Recruiter Login</li>
-    <li><a class="btn btn-primary" routerLink="/recruiter">Return to Recruiter Login</a></li>
+    <li><a class="btn btn-primary" routerLink="/home">Return to Home Page</a></li>
 </ol>
 
 <br/>
@@ -21,7 +21,6 @@
 <br><br>
 
     <form novalidate (ngSubmit)="authenticate(recruiterForm)" #recruiterForm="ngForm" class="form-horizontal">
-    <!--<input [ngModel]="recruiter?.recruiterId" ngModel #recruiterId="ngModel" type="hidden" name="recruiterId">-->
 
     <div class="form-group">
       <label for="username" class="col-sm-2 control-label">User Name</label>
@@ -32,12 +31,6 @@
         </span>
       </div>
     </div>
-        <!--<input [(ngModel)]="username" type="text" class="form-control" id="username" name="username" placeholder="Enter User Name..." required>
-          <span *ngIf="formErrors.username" class="text-danger">
-            {{ formErrors.username }}
-        </span>
-      </div>
-    </div>-->
 
     <div class="form-group">
       <label for="password" class="col-sm-2 control-label">Password</label>
@@ -55,23 +48,8 @@
       </div>
     </div>
   </form>
+  <br><br>
 
-  <!--<div class="form-group"> 
-      <div class="col-sm-offset-2 col-sm-10">
-        <button [disabled]="!recruiterForm.form.valid" type="submit" class="btn btn-primary" [routerLink]="[ '/event']">Submit</button>
-      </div>
-    </div>
-  </form>-->
-
-
-    <br><br>
-
-    <!--<a class="btn btn-primary" [routerLink]="[ '/recruiter/username/', username ]">Login</a>-->
-
-    <br>
-
-    <a class="btn btn-warning" [routerLink]="[ '/register/add/']">Register New Recruiter</a>
-    
-
-
+  <a class="btn btn-danger" [routerLink]="[ '/register/add/']">Register New Recruiter</a>
+  <br><br><br>
 </section>

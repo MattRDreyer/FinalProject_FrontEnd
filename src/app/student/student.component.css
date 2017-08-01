@@ -1,6 +1,6 @@
 .panel {
-    width: 40%;
-    margin-left: 11%;
+    width: 50%;
+    margin-left: 25%;
 }
 
 .panel-heading {
@@ -10,4 +10,8 @@
 .btn-danger {
     float: right;
     right: 1%;
+}
+
+form {
+    margin-left: 25%;
 }

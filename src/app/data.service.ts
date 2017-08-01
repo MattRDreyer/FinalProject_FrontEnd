@@ -12,8 +12,6 @@ export class DataService {
     private baseUrl = 'http://localhost:8080/'
     quizUrl: string;
 
-    quizUrl: string;
-
     constructor (private http: Http) {}
 
     // baseurl                  endpoint  destination
@@ -26,20 +24,17 @@ export class DataService {
 //                               STUDENTS PATH                                          *
 // **************************************************************************************
 
-    // authenticateLogin(endpoint: string, record:object, enterprise_id:string, password:string): Observable<object> {
-    //     let apiUrl = `${this.baseUrl}${endpoint}/${enterprise_id}`;
-    //     let apiUrl2 = apiUrl + "&" + password;
-    //     console.log("in authenticateLogin: " + apiUrl2);
-    //     console.log(apiUrl2);
-    //     return this.http.get(apiUrl2)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
-
     // executed from the login screen
     getStudentRecordByEmail(endpoint: string, email:string): Observable<object> {
+
+        // all email addresses are stored in lowercase to preserve only a single student registration record
+        console.log('email BEFORE: ' + email);
+        email = email.toLowerCase();
+        console.log('email AFTER: ' + email);
+
         let apiUrl = `${this.baseUrl}${endpoint}/${email}/`;
         console.log("In getStudentRecordByEmail " + apiUrl);
+        
         return this.http.get(apiUrl)
             .map(this.extractData)
             .catch(this.handleError);
@@ -56,9 +51,9 @@ export class DataService {
 
     // performed from saveStudent in student-form.component.ts
     // PUT: ...student/studentId/eventId
-    editStudentRecord(endpoint: string, record:object, id:number, event:string): Observable<object> {
-        let apiUrl = `${this.baseUrl}${endpoint}/${id}/${event}`;
-        console.log("Updating in editStudentRecord: " + apiUrl)
+    editStudentRecord(endpoint: string, record: object, id: number, event: string): Observable<object> {
+        const apiUrl = `${this.baseUrl}${endpoint}/${id}/${event}`;
+        console.log('Updating in editStudentRecord: "' + apiUrl)
         return this.http.put(apiUrl, record)
             .map(this.extractData)
             .catch(this.handleError);
@@ -84,10 +79,11 @@ export class DataService {
     // if the user picks "both" use this endpoint:
     //  /quiz/student/{studentEmail}
     getQuizRecords(endpoint: string, option: string, email:string, role:string): Observable<any> {
+        let baseUrl = `${this.baseUrl}${endpoint}/${option}/${email}/`
         if (role == "frontend" || role == "backend") {
-            this.quizUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"+role
+            this.quizUrl = `${baseUrl}${role}`
         } else {
-           this.quizUrl = this.baseUrl+endpoint+"/"+option+"/"+email+"/"
+           this.quizUrl = baseUrl
         }
         console.log("getQuizRecords: " + this.quizUrl);
         return this.http.get(this.quizUrl)

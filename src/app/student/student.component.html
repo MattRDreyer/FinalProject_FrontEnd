@@ -4,9 +4,9 @@
       <li class="active">Student Login / </li>
   </ol>
 
-  <button (click)="deactivateAndExit()" class="btn btn-danger">Deactivate</button>
+  <button (click)="deactivateAndExit()" class="btn btn-danger">Deactivate This Session</button>
 
-  <br /><br />
+  <br />
 
   <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
       {{errorMessage}} {{successMessage}}

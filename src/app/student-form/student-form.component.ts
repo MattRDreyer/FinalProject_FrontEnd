@@ -35,6 +35,7 @@ export class StudentFormComponent implements OnInit {
 
   email: string;
   default_email: string;
+  lc_email: string;
 
   constructor(
     private dataService: DataService,
@@ -76,6 +77,12 @@ export class StudentFormComponent implements OnInit {
   // POST: student/add/eventId
 
   saveStudent(student: NgForm){
+    
+    // all email addresses will be stored in lowercase to preserve only a single student registration record
+    this.lc_email = student.value.email;
+    this.lc_email = this.lc_email.toLowerCase();
+    student.value.email = this.lc_email;
+
     localStorage.setItem('email', student.value.email);
     console.log("saveStudent() - Email is: " + student.value.email);
     if ( typeof student.value.studentId === "number" ){

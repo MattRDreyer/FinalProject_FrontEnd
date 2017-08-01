@@ -32,7 +32,8 @@
       <th>Graduation Date</th>
       <th>Email</th>
       <th>Phone Number</th>
-       <th>Quiz Score</th> 
+       <th>Quiz Score</th>
+       <th>Recruiter Notes</th>
     </tr>
   </thead>
   <tbody>
@@ -44,7 +45,8 @@
       <td>{{student.graduationMonth}} {{student.graduationYear}}</td>
       <td>{{student.email}}</td>
       <td>{{student.phoneNumber}}</td>
-       <td>{{student.quiz[student.quiz.length-1].results.finalScore}}</td>
+      <td>{{student.quiz[student.quiz.length-1].results.finalScore}}</td>
+      <td>[(student.notes)]</td>
     </tr>
   </tbody>
 </table>

@@ -3,3 +3,8 @@ td {
     align-content: left;
     align-self: center; 
 }
+
+.btn-danger {
+   float: right;
+   right: 1%;
+}

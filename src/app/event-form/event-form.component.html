@@ -42,10 +42,11 @@
     <div class="form-group">
       <label for="recruiterId" class="col-sm-2 control-label">Recruiter</label>
       <div class="col-sm-10">
-        <select data-live-search="true" selectpicker multiple [ngModel]="currentRecruiters" ngModel #recruiters="ngModel" class="form-control"
-          name="recruiters" id="recruiterId" required> 
+
+        <select selectpicker multiple [ngModel]="currentRecruiters" ngModel #recruiters="ngModel" class="form-control" name="recruiters" id="recruiterId" required> 
           <option *ngFor="let recruiter of currentRecruiters" [value]="recruiter">{{recruiter.firstName}} {{recruiter.lastName}}</option>
         </select>
+        
         <span *ngIf="formErrors.recruiterId" class="text-danger">
           {{ formErrors.recruiterId }}
         </span>

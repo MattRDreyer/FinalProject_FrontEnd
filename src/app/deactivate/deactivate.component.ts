@@ -64,6 +64,7 @@ export class DeactivateComponent implements OnInit {
   ngAfterViewChecked() {
     this.formChanged();
   }
+
   formChanged() {
     this.recruiterForm = this.currentForm;
     this.recruiterForm.valueChanges
@@ -71,6 +72,7 @@ export class DeactivateComponent implements OnInit {
         data => this.onValueChanged()
       );
   }
+
   onValueChanged() {
     let form = this.recruiterForm.form;
     for (let field in this.formErrors) {
@@ -85,10 +87,12 @@ export class DeactivateComponent implements OnInit {
       }
     }
   }
+
   formErrors = {
     'username': '',
     'password': '',
   };
+
   validationMessages = {
     'username': {
       'required': 'User Name is required'
