@@ -102,7 +102,7 @@
   <div class="form-group">
     <label for="phoneNumber" class="col-sm-2 control-label">Phone Number</label>
     <div class="col-sm-4">
-      <input [ngModel]="student?.phoneNumber" ngModel #phoneNumber="ngModel" type="text" class="form-control" id="phoneNumber" type="number" name="phoneNumber"  placeholder="10 digits only" required minlength="7" maxlength="10" >
+      <input [ngModel]="student?.phoneNumber" ngModel #phoneNumber="ngModel" type="text" class="form-control" id="phoneNumber" name="phoneNumber"  placeholder="10 digits only" required minlength="7" maxlength="10" pattern="[0-9]+">
       <span *ngIf="formErrors.phoneNumber" class="text-danger">
           {{ formErrors.phoneNumber }}
       </span>

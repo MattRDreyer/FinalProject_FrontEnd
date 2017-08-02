@@ -188,6 +188,7 @@ export class StudentFormComponent implements OnInit {
     },
     'phoneNumber': {
       'required': 'Phone Number is required.',
+      'pattern': 'Digits only',
       'minlength': 'Phone Number must be at least 7 characters long',
       'maxlength': 'Phone Number cannot be more than 10 characters long'
     },
