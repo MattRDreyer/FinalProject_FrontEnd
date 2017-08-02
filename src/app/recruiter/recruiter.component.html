@@ -5,6 +5,9 @@
     <li><a class="btn btn-primary" routerLink="/home">Return to Home Page</a></li>
 </ol>
 
+<a class="btn btn-danger" id="align" [routerLink]="[ '/register/add/']">Register New Recruiter</a>
+<br>
+
 <br/>
 
  <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
@@ -50,6 +53,6 @@
   </form>
   <br><br>
 
-  <a class="btn btn-danger" [routerLink]="[ '/register/add/']">Register New Recruiter</a>
-  <br><br><br>
+  <!-- <a class="btn btn-danger" [routerLink]="[ '/register/add/']">Register New Recruiter</a>
+  <br><br><br> -->
 </section>

@@ -17,6 +17,11 @@ body {
     font-weight: bold;
 }
 
+#align {
+    float: right;
+    right: 1%;
+}
+
 .blur {
     filter: blur(5px);
     -webkit-filter: blur(5px);
