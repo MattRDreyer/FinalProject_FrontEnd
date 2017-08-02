@@ -7,6 +7,10 @@ body {
     /* background-repeat: no-repeat; */
 }
 
+table td {
+   border: 1px solid black;
+}
+
  .breadcrumb {
     background-color: transparent;
     font-size: 17px;
