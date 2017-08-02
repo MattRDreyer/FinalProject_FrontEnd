@@ -94,18 +94,22 @@ export class QuizComponent implements OnInit {
   }
 
   confirmParticipation() {
-    let dialogRef = this.dialog.open(ConfirmComponent, {
-      position: {
-      top: '',
-      bottom: '100px',
-      left: '250px',
-      right: ''
-      },
-      height: '190px',
-      width: '450px',
-    });
-    dialogRef.afterClosed().subscribe(result => { });
+    let dialogRef = this.dialog.open(ConfirmComponent);
   }
+
+  // confirmParticipation() {
+  //   let dialogRef = this.dialog.open(ConfirmComponent, {
+  //     position: {
+  //     top: '',
+  //     bottom: '100px',
+  //     left: '250px',
+  //     right: ''
+  //     },
+  //     height: '190px',
+  //     width: '450px',
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => { });
+  // }
   
   escapeHtml(unsafe) {
     // try {

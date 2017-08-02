@@ -6,6 +6,17 @@ body {
     /* background-repeat: no-repeat; */
 }
 
+ .breadcrumb {
+    background-color: transparent;
+    font-size: 12px;
+    /* opacity: 0.1;
+    filter: alpha(opacity=50); */
+}
+
+.active {
+    font-weight: bold;
+}
+
 .blur {
     filter: blur(5px);
     -webkit-filter: blur(5px);

@@ -1,10 +1,12 @@
 <section @fadeInAnimation>
 <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
-    <li class="active">Events</li>
+    <li class="active" style="color:black">Events</li>
 </ol>
 
- <a class="btn btn-danger" [routerLink]="['/recruiter']">Recruiter Logout</a>
+ <a class="btn btn-danger" id="btn-danger" [routerLink]="['/recruiter']">Recruiter Logout</a>
+
+<br/>
 
 <br/>
 
@@ -12,8 +14,8 @@
 
 <h2>Events</h2>
 
-<a class="btn btn-primary" [routerLink]="['/event/add/']">Add Event</a>&nbsp;
-<a class="btn btn-primary" [routerLink]="['/allevents']">View All Events</a>&nbsp;
+<a class="btn btn-primary" [routerLink]="['/event/add/']"><span class="glyphicon glyphicon-plus"></span> Add</a>&nbsp;
+<a class="btn btn-primary" [routerLink]="['/allevents']">ViewAll</a>&nbsp;
 
 <br><br><br>
 
@@ -33,7 +35,7 @@
       <td> <!--removed this  class="text-center" to align the buttons to left-->
         <a (click)="clickEvent(event)" [routerLink]="['/event/activate/', event.eventId]" class="btn btn-primary" role="button">Activate Event</a> 
         </td>
-      <td>{{event.eventDate}}</td>
+      <td>{{event.eventDate | date :'yyyy-MM-dd' }}</td>
       <td> <a href="/event/students/{{event.eventId}}">
         {{event.eventName}}
         </a></td>
@@ -43,8 +45,10 @@
       </span> 
         </td>
       <td>
-        <a class="btn btn-primary" [routerLink]="['/event/edit/', event.eventId]">Edit Event</a>&nbsp;
-      <button (click)="deleteEvent(event.eventId)" class="btn btn-danger">Delete Event</button>
+        <a class="btn btn-primary" [routerLink]="['/event/edit/', event.eventId]">
+          <span class="glyphicon glyphicon-edit"></span> Edit</a>&nbsp;
+        <button (click)="deleteEvent(event.eventId)"  class="btn btn-danger">
+        <span class="glyphicon glyphicon-trash"></span> Trash</button>
       </td>
       </tr>
   </tbody>

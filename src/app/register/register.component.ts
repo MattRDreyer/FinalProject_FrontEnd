@@ -24,10 +24,8 @@ export class RegisterComponent implements OnInit {
   username: string;
   firstName: string;
   password: string;
-  confirmPassword: string;
-  rightMessage: string = "";
-  wrongMessage: string ="";
   register: object; 
+  lc_email: string;
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
@@ -38,6 +36,9 @@ export class RegisterComponent implements OnInit {
     localStorage.removeItem('currentUser');
   }
 saveRecruiter(recruiter: NgForm){
+    this.lc_email = recruiter.value.email;
+    this.lc_email = this.lc_email.toLowerCase();
+    recruiter.value.email = this.lc_email;
     console.log("recruiterId = " + recruiter.value.recruiterId)
     this.dataService.addRecruiterRecord("recruiter", recruiter.value)
         .subscribe(
@@ -47,10 +48,10 @@ saveRecruiter(recruiter: NgForm){
           setTimeout(() => resolve(this.router.navigate([ 'recruiter'])), 3000))
           
           },
-          error => this.errorMessage = "Username or email already in use.  Please try again");
+          error => alert("Username or email already in use.  Please try again"))
           
             
-    }
+}
  
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {

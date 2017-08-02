@@ -1,7 +1,7 @@
 <section @fadeInAnimation>
     <ol class="breadcrumb">
       <!-- <li><a routerLink="/home">Home</a></li> -->
-      <li class="active">Student Login / </li>
+      <li class="active" style="color:black">Student Login / </li>
   </ol>
 
   <button (click)="deactivateAndExit()" class="btn btn-danger">Deactivate This Session</button>
@@ -38,7 +38,7 @@
     <div class="form-group">
       <label for="email" class="col-sm-2 control-label">Email</label>
       <div class="col-sm-4">
-        <input autocomplete="off" [(ngModel)]="email" type="text" class="form-control" id="email" name="email" placeholder="Enter Email..." required minlength="2" maxlength="75" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$">
+        <input autocomplete="off" [(ngModel)]="email" type="text" class="form-control" id="email" name="email" placeholder="Enter Email..." required minlength="2" maxlength="75" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
           <span *ngIf="formErrors.email" class="text-danger">
             {{ formErrors.email }}
         </span>

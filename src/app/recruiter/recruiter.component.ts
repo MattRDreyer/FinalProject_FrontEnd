@@ -1,4 +1,3 @@
-
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, ViewChild }      from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -12,7 +11,6 @@ import { fadeInAnimation } from '../animations/fade-in.animation';
   styleUrls: ['./recruiter.component.css'],
   animations: [fadeInAnimation]
 })
-
 export class RecruiterComponent implements OnInit {
   //this is needed for form on the page so we can do things like validation
   //we can discuss this in detail when needed
@@ -22,10 +20,8 @@ export class RecruiterComponent implements OnInit {
   //handle status messages
   successMessage: string;
   errorMessage: string;
-
   username: string;
   password: string;
-
   recruiter: object; 
   constructor(
     private dataService: DataService,
@@ -33,16 +29,13 @@ export class RecruiterComponent implements OnInit {
     private location: Location,
     private router: Router
   ) {}
-
   ngOnInit() {
-    this.successMessage = "Welcome. Please login to begin your session."
+    
   }
-
   authenticate(recruiter: NgForm) {
     
     let username = recruiter.value.username;
     let password = recruiter.value.password;
-
     this.dataService.recruiterLogin(`recruiter/${username}/${password}`)
       .subscribe(
         recruiter => {
@@ -52,8 +45,6 @@ export class RecruiterComponent implements OnInit {
       },
       error => this.errorMessage = "Login Invalid.  Please try again");
   }
-
-
   //  authenticate(recruiter: NgForm) {
   //     this.dataService.recruiterLogin("recruiter", recruiter.value) 
   //     // this.recruiter = JSON.parse(localStorage.getItem('currentUser')) //could be used later for get
@@ -62,11 +53,9 @@ export class RecruiterComponent implements OnInit {
   //           localStorage.setItem("currentUser", JSON.stringify(this.recruiter))  //currentUser = potato... can be used later to retrieve get for other functions
   //           // recruiter => console.log(recruiter),
   //           // this.recruiter = {};
-
   //         },
           
   //         error =>  this.errorMessage = <any>error);
-
   //everything below here is form validation boiler plate
   ngAfterViewChecked() {
     this.formChanged();

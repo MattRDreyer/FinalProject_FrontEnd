@@ -1,12 +1,12 @@
 <section @fadeInAnimation>
   <ol class="breadcrumb">
       <!-- <li><a routerLink="/home">Home</a></li> -->
-      <li><a routerLink="/student">Student Registration</a></li>
-      <li class="active">Student Registration</li>
+      <li class="active" style="color:black">Student Registration &nbsp;/&nbsp;</li>
+      <a class="btn btn-primary" routerLink="/student">Return to Student Login</a>
   </ol>
 
 
-<a class="btn btn-primary" routerLink="/student">Return to Student Login</a>
+<!-- <a class="btn btn-primary" routerLink="/student">Return to Student Login</a> -->
 <br /><br />
 
 <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
