@@ -1,7 +1,17 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 body {
-    /* background-image: url("assets/images/Liberty-Lady-Transparent-Background.jpg"); */
+    background-color: lightgray;
+    background-image: url("/assets/images/be_at_liberty_blur.jpg");
+    /* background-repeat: no-repeat; */
+}
+
+.blur {
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
 }
 
 @media (min-width: 600px) {
@@ -33,4 +43,16 @@ body {
 
 #deactivateMsg {
     margin-top: 30px;
+}
+
+footer {
+    background-color: lightgray;
+    height: 50px;
+    color: black;
+    font-style: bold;
+    font-size: 18px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    border: 2px solid black;
 }

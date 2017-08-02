@@ -18,7 +18,7 @@
     <input [ngModel]="event?.eventId" ngModel #eventId="ngModel" type="hidden" name="eventId" id="eventForm">
     <div class="form-group">
       <label for="eventDate" class="col-sm-2 control-label">Event Date</label>
-      <div class="col-sm-10">
+      <div class="col-sm-4">
         <input [(ngModel)]="event.eventDate" #eventDate="ngModel" type="text" class="form-control" id="eventDate" name="eventDate"
           placeholder="2017-01-01" pattern="(\d{4})-(\d{2})-(\d{2})" required>
         <!-- <input mdInput [mdDatepicker]="myDatepicker" required>
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <label for="eventName" class="col-sm-2 control-label">Event Name</label>
-      <div class="col-sm-10">
+      <div class="col-sm-4">
         <input [(ngModel)]="event.eventName" #eventName="ngModel" type="text" class="form-control" id="eventName" name="eventName"
           placeholder="event name" required minlength="2" maxlength="30">
         <span *ngIf="formErrors.eventName" class="text-danger">
@@ -41,11 +41,11 @@
     </div>
     <div class="form-group">
       <label for="recruiterId" class="col-sm-2 control-label">Recruiter</label>
-      <div class="col-sm-10">
+      <div class="col-sm-4">
 
-        <select selectpicker multiple [ngModel]="currentRecruiters" ngModel #recruiters="ngModel" class="form-control" name="recruiters" id="recruiterId" required> 
-          <option *ngFor="let recruiter of currentRecruiters" [value]="recruiter">{{recruiter.firstName}} {{recruiter.lastName}}</option>
-        </select>
+        <select [compareWith]="byRecruiterId" selectpicker multiple [ngModel]="event.recruiters" ngModel #recruiters="ngModel" class="form-control" name="recruiters" id="recruiterId" required>
+         <option *ngFor="let recruiter of currentRecruiters" [value]="recruiter">{{recruiter.firstName}} {{recruiter.lastName}}</option>
+       </select>
         
         <span *ngIf="formErrors.recruiterId" class="text-danger">
           {{ formErrors.recruiterId }}
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
+      <div class="col-sm-offset-2 col-sm-4">
         <button [disabled]="!eventForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
