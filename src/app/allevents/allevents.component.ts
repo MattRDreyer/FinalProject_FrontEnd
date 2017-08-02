@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
 import { DataService } from '../data.service'
-import { ConfirmComponent } from '../confirm/confirm.component'
+import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
 
 @Component({
   selector: 'app-allevents',
@@ -70,7 +70,7 @@ dtOptions: any = {};
 
   deleteEvent(eventId: number) {
     // console.log(eventId);
-    let dialogRef = this.dialog.open(ConfirmComponent);
+    let dialogRef = this.dialog.open(DeleteConfirmComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.dataService.deleteRecord("event", eventId)

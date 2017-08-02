@@ -28,6 +28,7 @@
       <th>Graduation Date</th>
       <th>Email</th>
       <th>Phone Number</th>
+      <th>Role</th>
        <th>Quiz Score</th>
        <th>Recruiter Notes</th>
        <th>Admin</th>
@@ -42,8 +43,10 @@
       <td class="shrink">{{student.graduationMonth}} {{student.graduationYear}}</td>
       <td class="shrink">{{student.email}}</td>
       <td class="shrink">{{student.phoneNumber}}</td>
-      <td class="shrink">{{student.quiz[student.quiz.length-1].results.finalScore}}</td>
-      <td class="shrink"><input type="text" [(ngModel)]="student.notes"></td>
+      <td class="shrink">{{student.role}}</td>
+       <td>{{(student.quiz[student.quiz.length-1].results) ? student.quiz[student.quiz.length-1].results.finalScore : "N/A"}}</td>
+      <td class="shrink">
+        <textarea rows="3" cols="35" type="text" [(ngModel)]="student.notes"></textarea>
       <td class="expand">
         <button (click)="updateNotes(student,eventNumber)" type= "submit" class="btn btn-primary">Save Notes</button></td>
     </tr>
