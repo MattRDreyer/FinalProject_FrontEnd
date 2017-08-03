@@ -22,7 +22,7 @@
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email</label>
     <div class="col-sm-4">
-      <input autocomplete="off" [ngModel]="student?.email" ngModel #email="ngModel" type="text" class="form-control" id="email" name="email" placeholder="Email" required minlength="2" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+      <input autocomplete="off" [ngModel]="student?.email" ngModel #email="ngModel" type="text" class="form-control" id="email" name="email" placeholder="Email" required minlength="2" maxlength="50" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$">
          <span *ngIf="formErrors.email" class="text-danger">
           {{ formErrors.email }}
       </span>
@@ -32,7 +32,7 @@
   <div class="form-group">
     <label for="firstName" class="col-sm-2 control-label">First Name</label>
     <div class="col-sm-4">
-      <input [ngModel]="student?.firstName" ngModel #first_name="ngModel" type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required minlength="2" maxlength="30">
+      <input [ngModel]="student?.firstName" ngModel #first_name="ngModel" type="text" class="form-control" id="firstName" name="firstName" required minlength="2" maxlength="30">
         <span *ngIf="formErrors.firstName" class="text-danger">
           {{ formErrors.firstName }}
       </span>
@@ -42,7 +42,7 @@
   <div class="form-group">
     <label for="lastName" class="col-sm-2 control-label">Last Name</label>
     <div class="col-sm-4">
-      <input [ngModel]="student?.lastName" ngModel #last_name="ngModel" type="text" class="form-control" id="lastName" name="lastName"  placeholder="lastName" required minlength="2" maxlength="30">
+      <input [ngModel]="student?.lastName" ngModel #last_name="ngModel" type="text" class="form-control" id="lastName" name="lastName"  required minlength="2" maxlength="30">
       <span *ngIf="formErrors.lastName" class="text-danger">
           {{ formErrors.lastName }}
       </span>

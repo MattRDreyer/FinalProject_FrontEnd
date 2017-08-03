@@ -37,7 +37,7 @@
         <div class="form-group">
       <label for="email" class="col-sm-2 control-label">Email</label>
       <div class="col-sm-4">
-        <input [(ngModel)]="email" type="text" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="Enter Email..." required>
+        <input [(ngModel)]="email" type="text" class="form-control" id="email" name="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$" placeholder="Enter Email..." required>
           <span *ngIf="formErrors.email" class="text-danger">
             {{ formErrors.email }}
         </span>
