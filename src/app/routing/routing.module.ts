@@ -18,6 +18,8 @@ import { EventFormComponent }   from '../event-form/event-form.component';
 import { HomeComponent }   from '../home/home.component';
 
 import { AlleventsComponent } from '../allevents/allevents.component';
+
+import { AboutComponent }   from '../about/about.component';
  
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -43,7 +45,10 @@ const routes: Routes = [
   { path: 'recruiter/events/:recruiterId',  component: EventComponent },
   { path: 'event/add', component: EventFormComponent },
   { path: 'event/edit/:eventId', component: EventFormComponent },
-  { path: 'event/activate/:eventId',  component: StudentComponent }, 
+  { path: 'event/activate/:eventId',  component: StudentComponent },
+
+  { path: 'about', component: AboutComponent}
+  
 ];
  
 @NgModule({

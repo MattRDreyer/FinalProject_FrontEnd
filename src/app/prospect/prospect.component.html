@@ -44,7 +44,9 @@
       <td class="shrink">{{student.email}}</td>
       <td class="shrink">{{student.phoneNumber}}</td>
       <td class="shrink">{{student.role}}</td>
-       <td>{{(student.quiz[student.quiz.length-1].results) ? student.quiz[student.quiz.length-1].results.finalScore : "N/A"}}</td>
+      <td>{{student.quiz[student.quiz.length - 1].results 
+            ? student.quiz[student.quiz.length - 1].results.finalScore 
+            : "N/A"}}</td>
       <td class="shrink">
         <textarea rows="3" cols="35" type="text" [(ngModel)]="student.notes"></textarea>
       <td class="expand">

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 
-import { DataService } from '../data.service'
+import { DataService } from '../data.service';
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-allevents',
@@ -12,7 +13,10 @@ import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.compone
   styleUrls: ['./allevents.component.css']
 })
 export class AlleventsComponent implements OnInit {
-dtOptions: any = {};
+
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: any;
   dtTrigger: Subject<any> = new Subject();
   events: any[];
   errorMessage: string;
@@ -42,10 +46,14 @@ dtOptions: any = {};
       .subscribe(
       recruiterArray => {
         this.events = recruiterArray
-        this.dtTrigger.next();
+        this.rerender();
       },
       error => this.errorMessage = <any>error
       )
+  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
   }
 
 
@@ -75,13 +83,24 @@ dtOptions: any = {};
       if (result) {
         this.dataService.deleteRecord("event", eventId)
           .subscribe(
-          event => { this.successMessage = "Record(s) deleted succesfully"; this.getEventRecruiters(); },
+          event => { this.successMessage = "Record(s) deleted succesfully"; this.getEventRecruiters()},
           error => this.errorMessage = <any>error);
 
       }
+        
 
 
 
     });
   }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
+
 }

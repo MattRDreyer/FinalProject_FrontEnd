@@ -7,6 +7,7 @@ import { DataService } from '../data.service'
 import { fadeInAnimation } from '../animations/fade-in.animation';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Subject } from 'rxjs/Rx';
+
 import 'rxjs/add/operator/map';
 @Component({
   selector: 'app-prospect',
@@ -14,11 +15,13 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./prospect.component.css'],
   animations: [fadeInAnimation]
 })
+
 export class ProspectComponent implements OnInit {
   //this is needed for form on the page so we can do things like validation
   //we can discuss this in detail when needed
   prospectForm: NgForm;
   @ViewChild('prospectForm')
+  
   currentForm: NgForm;
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
@@ -38,11 +41,13 @@ export class ProspectComponent implements OnInit {
   eventId: number;
   event: any = {};
   eventNumber: number;
+
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
+
   ngOnInit(): void { 
     this.dtOptions = {
      paging: true,

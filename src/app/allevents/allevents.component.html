@@ -21,7 +21,7 @@
         <th>Event Name</th>
         <th>No of Students</th>
         <th>Recruiter</th>
-        <th>Actions</th>
+        <th class="col-xs-3">Admin</th>
       </tr>
     </thead>
     <tbody>
@@ -31,10 +31,11 @@
         </td>
 
         <td>{{event.eventDate | date :'yyyy-MM-dd' }}</td>
-        <td> <a href="/event/students/{{event.eventId}}">
+ <!-- modifying this to work on heroku - a href="/event/students/{{event.eventId}} -->
+      <td> <a [routerLink]= "['/event/students/',event.eventId]"> 
         {{event.eventName}}
         </a></td>
-      <td>{{event.numStudents}}</td>
+       <td>{{event.numStudents}}</td>
         <td><span *ngFor="let recruiter of event.recruiters">
         {{recruiter.firstName}} {{recruiter.lastName}} <br />
         </span>

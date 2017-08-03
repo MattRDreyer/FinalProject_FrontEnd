@@ -37,6 +37,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { AlleventsComponent } from './allevents/allevents.component';
 
 import { DeactivateComponent } from './deactivate/deactivate.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { DeactivateComponent } from './deactivate/deactivate.component';
     StatusMessageComponent,
     DeleteConfirmComponent,
     AlleventsComponent,
-    DeactivateComponent
+    DeactivateComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

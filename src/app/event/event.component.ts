@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DataService } from '../data.service'
 import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
 import { fadeInAnimation } from '../animations/fade-in.animation';
+import { DataTableDirective } from 'angular-datatables';
 
 import { Subject } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -16,6 +17,8 @@ import 'rxjs/add/operator/map';
 })
 export class EventComponent implements OnInit {
 
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
 
@@ -53,11 +56,16 @@ getEventRecruiters(){
      .subscribe(
        events => {
          this.events = events
-         this.dtTrigger.next()
+        //  this.dtTrigger.next()
+        this.rerender();  
        },
        error =>  this.errorMessage = <any>error
      );
  }
+
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
 
   clickEvent(event){
     let eventNumber = event.eventId;
@@ -88,7 +96,15 @@ getEventRecruiters(){
             error =>  this.errorMessage = <any>error);
 
       }
-
       }); 
 }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+  }
 }
