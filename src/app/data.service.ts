@@ -146,6 +146,15 @@ export class DataService {
             .map(this.extractData)  //how to map data from API
             .catch(this.handleError);  // how to handle if it messes up
     }
+
+    editProspectNotes(endpoint: string, record: object, studentId: number, eventId: number): Observable<object> {
+        const apiUrl = `${this.baseUrl}${endpoint}/${studentId}/${eventId}`;
+        console.log('Edit student notes: "' + apiUrl)
+        console.log(record)
+        return this.http.put(apiUrl, record)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     
 
     addRecruiterRecord(endpoint: string, record:object): Observable<object> {

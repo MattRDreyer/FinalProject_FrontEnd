@@ -17,5 +17,9 @@ export class HomeComponent implements OnInit {
 
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentEvent');
+        localStorage.removeItem('recruitName');
+        localStorage.removeItem('eventId');
+        localStorage.removeItem('eventNumber');
+
   }
 }

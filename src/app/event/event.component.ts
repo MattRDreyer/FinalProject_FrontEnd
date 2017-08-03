@@ -16,6 +16,7 @@ import 'rxjs/add/operator/map';
 })
 export class EventComponent implements OnInit {
 
+  @Input() firstName: string;
   dtOptions: any = {};
   dtTrigger: Subject<any> = new Subject();
 
@@ -25,6 +26,7 @@ export class EventComponent implements OnInit {
   recruiters : any[];
   mode = 'Observable';
   event: object;
+  
 
   constructor (
     private dataService: DataService, 
@@ -54,6 +56,7 @@ getEventRecruiters(){
        events => {
          this.events = events
          this.dtTrigger.next()
+         
        },
        error =>  this.errorMessage = <any>error
      );

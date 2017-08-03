@@ -6,6 +6,7 @@ import { StudentFormComponent }   from '../student-form/student-form.component';
 
 import { QuizComponent }   from '../quiz/quiz.component';
 
+
 import { RecruiterComponent }   from '../recruiter/recruiter.component';
 import { RecruiterFormComponent }   from '../recruiter-form/recruiter-form.component';
 import { RegisterComponent }   from '../register/register.component';
@@ -44,6 +45,9 @@ const routes: Routes = [
   { path: 'event/add', component: EventFormComponent },
   { path: 'event/edit/:eventId', component: EventFormComponent },
   { path: 'event/activate/:eventId',  component: StudentComponent }, 
+
+
+
 ];
  
 @NgModule({

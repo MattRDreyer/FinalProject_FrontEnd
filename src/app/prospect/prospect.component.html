@@ -3,10 +3,10 @@
     <li><a routerLink="/home">Home</a></li>
     <li><a routerLink="/recruiter">Recruiter</a></li>
     <li class="active">Prospect List</li>
-    <li><a class="btn btn-primary" routerLink="/recruiter">Return to Recruiter Login</a></li>
+    <li><a class="btn btn-primary" routerLink="/event">Return to Events</a></li>
 </ol>
 
-<br><br><br><br><br>
+<br><br>
 
 <div [ngClass]="(errorMessage)?'alert alert-danger':'alert alert-success'" role="alert" *ngIf="errorMessage || successMessage" id="deletemsg">
     {{errorMessage}} {{successMessage}}
@@ -34,34 +34,23 @@
       <th>Phone Number</th>
        <th>Quiz Score</th>
        <th>Recruiter Notes</th>
+       <th class="absorbing-column">Admin</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let student of students">
-      <td>{{student.firstName}} {{student.lastName}}</td>
-      <td>{{student.university}}</td>
-      <td>{{student.major}}</td>
-      <td>{{student.gpa}}</td>
-      <td>{{student.graduationMonth}} {{student.graduationYear}}</td>
-      <td>{{student.email}}</td>
-      <td>{{student.phoneNumber}}</td>
-      <td>{{student.quiz[student.quiz.length-1].results.finalScore}}</td>
-      <td>[(student.notes)]</td>
+      <td height="100">{{student.firstName}} {{student.lastName}}</td>
+      <td class="shrink">{{student.university}}</td>
+      <td class="shrink">{{student.major}}</td>
+      <td class="shrink">{{student.gpa}}</td>
+      <td class="shrink">{{student.graduationMonth}} {{student.graduationYear}}</td>
+      <td class="shrink">{{student.email}}</td>
+      <td class="shrink">{{student.phoneNumber}}</td>
+      <td class="shrink">{{student.quiz[student.quiz.length-1].results.finalScore}}</td>
+      <td class="shrink"><input type="text" [(ngModel)]="student.notes"></td>
+      <td class="expand">
+        <button (click)="updateNotes(student,eventNumber)" type= "submit" class="btn btn-primary">Save Notes</button></td>
     </tr>
   </tbody>
 </table>
 </section>
-
-
-
-
-    <!--<td><span *ngFor="let event of students.event">
-        {{eventName}} <br />
-      </span> 
-        </td>-->
-    
-
-      <!--<td class="text-center">  EDIT AND DELETE BUTTONS IF NEEDED LATER
-        <a class="btn btn-primary" [routerLink]="['/student/edit/', student.studentId]">Edit</a>&nbsp;
-        <button (click)="deleteStudent(student.studentId)" class="btn btn-danger">Delete</button>
-      </td>-->

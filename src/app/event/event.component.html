@@ -12,10 +12,21 @@
 
 <h2>Events</h2>
 
+        <!--<div class="answer">Guessed Answer: [firstName]</div>-->
+
 <a class="btn btn-primary" [routerLink]="['/event/add/']">Add Event</a>&nbsp;
 <a class="btn btn-primary" [routerLink]="['/allevents']">View All Events</a>&nbsp;
 
 <br><br><br>
+
+<!--<tr *ngFor="let event of events">
+      <td><span *ngFor="let recruiter of event.recruiters">
+        Welcome  {{recruiter.firstName}} -no event you don't show<br />
+      </span> 
+        </td></tr>
+
+        <br><br><br><br>-->
+
 
  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover" style="width:100%">
   <thead>
@@ -49,6 +60,5 @@
       </tr>
   </tbody>
 </table> 
-
 
 </section>
