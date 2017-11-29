@@ -9,8 +9,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
 
-    // private baseUrl = 'http://localhost:8080/'
-    private baseUrl = 'http://candidateevaltest.puncwm3uxa.us-east-2.elasticbeanstalk.com:8080/'
+    private baseUrl = 'http://localhost:8080/'
+    // private baseUrl = 'http://candidateeval.herokuapp.com/home/'
     quizUrl: string;
 
     constructor (private http: Http) {}
